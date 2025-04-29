@@ -306,7 +306,29 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
 .page-links a.active {
     color: #F7C815; /* Цвет активной ссылки (текущей страницы) */
     font-weight: bold; /* Дополнительное выделение */
-}       
+} 
+        @media (max-width: 768px) {
+    .header h1 {
+        font-size: 16px;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        white-space: normal;
+        line-height: 1.2;
+    }
+
+    .header .subtitle {
+        font-size: 12px;
+        width: 90%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        white-space: normal;
+        line-height: 1.2;
+    }
+}
+
     </style>
 </head>
 <body>
