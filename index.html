@@ -28,31 +28,32 @@
             align-items: center;
             z-index: 1000;
         }
-.header .container {
-  display: flex;
-  flex-direction: column; /* Для вертикального расположения элементов */
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  position: relative;
-  padding: 10px 20px;
-}
 
-.header h1 {
-  position: static; /* Убираем абсолютное позиционирование */
-  transform: none; /* Убираем смещение */
-  margin: 0;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 1.2; /* Увеличиваем межстрочный интервал для читаемости */
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 20px;
+        }
+
+        .header h1 {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%) translateY(-10px);
+    margin: 0;
+    font-size: 20px; /* Можно увеличить размер текста */
+    font-weight: bold;
 }
 
 .header .subtitle {
-  position: static; /* Убираем абсолютное позиционирование */
-  transform: none; /* Убираем смещение */
-  font-size: 14px;
-  color: #ffffff;
-  margin: 5px 0 0 0; /* Отступ сверху для разделения */
+    position: absolute;
+    bottom: 10px; /* Расстояние от нижнего края шапки */
+    left: 50%;
+    transform: translateX(-50%); /* Центрирует по горизонтали */
+    font-size: 14px;
+    color: #ffffff; /* Цвет текста */
+    margin: 0;
 }
         
         .header img {
@@ -198,44 +199,40 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
     opacity: 0; /* Снова исчезает в конце */
   }
 } 
+       @media (max-width: 768px) {
+  .menu-toggle {
+    display: block;
+    cursor: pointer;
+    font-size: 24px;
+    color: white;
+  }
 
-@media (max-width: 768px) {
+  .header .nav {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    background-color: rgba(173, 169, 186, 0.8);
+    position: absolute;
+    left: 0;
+    top: 50px;
+    z-index: 999;
+    padding: 10px 0;
+  }
+
+  .header .nav.active {
+    display: flex;
+  }
+
   .header h1 {
-    font-size: 16px; /* Уменьшаем размер заголовка */
+    font-size: 14px;
+    transform: translateX(-50%) translateY(-15px);
   }
 
-  .header .subtitle {
-    font-size: 12px; /* Уменьшаем размер подзаголовка */
-  }
-
-  .header .container {
-    padding: 5px 15px; /* Уменьшаем отступы для компактности */
+  .header p.subtitle {
+    font-size: 10px;
+    bottom: 8px;
   }
 }
-        @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
-                cursor: pointer;
-                font-size: 24px;
-                color: white;
-            }
-
-            .header .nav {
-                display: none;
-                flex-direction: column;
-                width: 100%;
-                background-color: rgba(173, 169, 186, 0.8);
-                position: absolute;
-                left: 0;
-                top: 50px; /* Меню появляется под шапкой */
-                z-index: 999;
-                padding: 10px 0;
-            }
-
-            .header .nav.active {
-                display: flex;
-            }
-        }
 
         .main-content {
             padding: 70px 20px; /* Отступ сверху для основного контента */
@@ -329,8 +326,8 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
             <a href="site.html">
                 <img src="2.gif" alt="Логотип">
             </a>
-            <h1>СТОП САМООБМАН</h1>
-            <p class="subtitle">ВНИМАТЕЛЬНО СМОТРИМ В БУДУЩЕЕ</p>
+            <h1>СТОП НЕЙРООБМАН</h1>
+            <p class="subtitle" style="color: #3264e3;">ВНИМАТЕЛЬНО СМОТРИМ В БУДУЩЕЕ</p>
             <nav class="nav">
                 <a href="2danimation.html">2D анимация</a>
                <!-- <a href="about.html">О нас</a> -->
