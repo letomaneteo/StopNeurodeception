@@ -273,28 +273,64 @@ a.grid-item {
     inset: 0; /* Занимает весь блок */
     border: 2px solid transparent;
     border-radius: 10px;
-    background: linear-gradient(
-        45deg,
-        #ff0000, /* Красный */
-        #00ff00, /* Зеленый */
-        #0000ff, /* Синий */
-        #ff0000  /* Красный (зацикливание) */
-    ) border-box;
+    background: 
+        /* Верхняя сторона */
+        linear-gradient(to right, transparent, #ff0000, transparent) top,
+        /* Правая сторона */
+        linear-gradient(to bottom, transparent, #00ff00, transparent) right,
+        /* Нижняя сторона */
+        linear-gradient(to left, transparent, #0000ff, transparent) bottom,
+        /* Левая сторона */
+        linear-gradient(to top, transparent, #ff0000, transparent) left;
+    background-size: 
+        100% 2px, /* Верх */
+        2px 100%, /* Право */
+        100% 2px, /* Низ */
+        2px 100%; /* Лево */
+    background-repeat: no-repeat;
     -webkit-mask: 
         linear-gradient(#fff 0 0) padding-box,
         linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    background-size: 400% 400%; /* Увеличенный размер для плавного движения */
-    animation: moveBorder 4s linear infinite;
+    animation: moveBorder 2s linear infinite;
 }
 
 @keyframes moveBorder {
     0% {
-        background-position: 0% 0%;
+        background-position: 
+            0% 0%,  /* Верх: начало */
+            100% 0%, /* Право: начало */
+            100% 100%, /* Низ: начало */
+            0% 100%; /* Лево: начало */
+    }
+    25% {
+        background-position: 
+            100% 0%, /* Верх: конец */
+            100% 0%, /* Право: начало */
+            100% 100%, /* Низ: начало */
+            0% 100%; /* Лево: начало */
+    }
+    50% {
+        background-position: 
+            100% 0%, /* Верх: конец */
+            100% 100%, /* Право: конец */
+            100% 100%, /* Низ: начало */
+            0% 100%; /* Лево: начало */
+    }
+    75% {
+        background-position: 
+            100% 0%, /* Верх: конец */
+            100% 100%, /* Право: конец */
+            0% 100%, /* Низ: конец */
+            0% 100%; /* Лево: начало */
     }
     100% {
-        background-position: 400% 400%;
+        background-position: 
+            0% 0%, /* Верх: начало */
+            100% 0%, /* Право: начало */
+            100% 100%, /* Низ: начало */
+            0% 0%; /* Лево: конец */
     }
 }
 /*конец блока анимации рамки*/
@@ -530,8 +566,9 @@ a.grid-item {
     font-size: 20px;
   }
 
-  .fade-in, .text-orange {
-    font-size: 50px; /* текст выше баннера */
+  .fade-in.text-orange {
+    font-size: 70px !important; /* Увеличенный размер только для оранжевого текста */
+    line-height: 1.2; /* Для читаемости */
   }
 
   .main-content {
