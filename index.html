@@ -258,7 +258,7 @@ a.grid-item {
   color: inherit;
 }
         /*начало блока анимации рамки*/
-.animated-border-block {
+ .smooth-border-block {
     position: relative;
     border-radius: 10px;
     overflow: hidden;
@@ -267,39 +267,61 @@ a.grid-item {
     transition: transform 0.3s;
   }
 
-  .animated-border-block::before {
+  .smooth-border-block::before {
     content: '';
     position: absolute;
-    top: -2px;
-    left: -2px;
-    right: -2px;
-    bottom: -2px;
-    background: linear-gradient(
-      45deg,
+    inset: -2px; /* Короткая запись для top/right/bottom/left */
+    background: conic-gradient(
+      from 0deg at 50% 50%,
       #ff0000, #ff7300, #fffb00, #48ff00,
       #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000
     );
-    background-size: 400% 400%;
     border-radius: 12px;
     z-index: -1;
-    animation: borderAnimation 8s linear infinite;
+    animation: rotateGradient 8s linear infinite;
   }
 
-  @keyframes borderAnimation {
+  @keyframes rotateGradient {
     0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
+      transform: rotate(0deg);
     }
     100% {
-      background-position: 0% 50%;
+      transform: rotate(360deg);
     }
   }
 
-  .animated-border-block:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  /* Вариант 2: бегущая линия */
+  .running-border-block {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 1;
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+
+  .running-border-block::before {
+    content: '';
+    position: absolute;
+    inset: 0; /* все границы */
+    border: 2px solid transparent;
+    border-radius: 10px;
+    background: linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000) border-box;
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) padding-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    background-size: 200% 100%;
+    animation: moveBorder 4s linear infinite;
+  }
+
+  @keyframes moveBorder {
+    0% {
+      background-position: 0% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
   }
 /*конец блока анимации рамки*/
 @media (max-width: 600px) {
@@ -617,23 +639,23 @@ a.grid-item {
   </div>
 </a>
 
-  <a href="https://example.com/cybernetics" class="grid-item">
-    <img src="image3.jpg" alt="Cybernetics">
-    <div class="text-content">
-      <h3>HUMAN 2.0</h3>
-      <p>Границы между человеком и машиной стираются.</p>
-      <p>Будущее тела — кибернетика.</p>
-    </div>
-  </a>
+  <a href="https://example.com/ai-future" class="grid-item smooth-border-block">
+  <img src="https://i.imgur.com/nk6xmnR.png" alt="AI Future">
+  <div class="text-content">
+    <h3>БУДУЩЕЕ ВМЕСТЕ С ИСКУСТВЕННЫМ ИНТЕЛЛЕКТОМ. КАКИМ ОНО БУДЕТ ДЛЯ КАЖДОГО?</h3>
+    <p>Будущее с искусственным интеллектом приближается.</p>
+    <p>Каким оно будет?</p>
+  </div>
+</a>
     
- <a href="https://example.com/cybernetics" class="grid-item">
-    <img src="image3.jpg" alt="Cybernetics">
-    <div class="text-content">
-      <h3>HUMAN 2.0</h3>
-      <p>Границы между человеком и машиной стираются.</p>
-      <p>Будущее тела — кибернетика.</p>
-    </div>
-  </a>
+ <a href="https://example.com/ai-future" class="grid-item running-border-block">
+  <img src="https://i.imgur.com/nk6xmnR.png" alt="AI Future">
+  <div class="text-content">
+    <h3>БУДУЩЕЕ ВМЕСТЕ С ИСКУСТВЕННЫМ ИНТЕЛЛЕКТОМ. КАКИМ ОНО БУДЕТ ДЛЯ КАЖДОГО?</h3>
+    <p>Будущее с искусственным интеллектом приближается.</p>
+    <p>Каким оно будет?</p>
+  </div>
+</a>
     
 <a href="https://example.com/cybernetics" class="grid-item">
     <img src="image3.jpg" alt="Cybernetics">
