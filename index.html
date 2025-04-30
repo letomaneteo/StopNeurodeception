@@ -265,33 +265,72 @@ a.grid-item {
     overflow: hidden;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.85);
+    border: 2px solid transparent; /* Прозрачная рамка для border-image */
+    box-sizing: border-box;
 }
 
 .running-border-block::before {
     content: '';
     position: absolute;
-    inset: -2px; /* Слегка расширяем, чтобы рамка была по краям */
+    inset: 0;
     border-radius: 10px;
-    background: conic-gradient(
-        from 0deg,
-        transparent 0% 80%, /* Прозрачная часть */
-        #ff6347 80% 90%, /* Основной цвет линии */
-        transparent 90% 100% /* Снова прозрачная часть */
-    );
-    -webkit-mask: 
-        linear-gradient(#fff 0 0) padding-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    animation: rotateBorder 2s linear infinite;
+    border: 2px solid transparent;
+    border-image: linear-gradient(
+        to right,
+        #ff6347 0%, /* Яркий цвет для линии */
+        transparent 25%,
+        transparent 75%,
+        #ff6347 100%
+    ) 1;
+    border-image-slice: 1;
+    animation: moveBorder 2s linear infinite;
 }
 
-@keyframes rotateBorder {
+@keyframes moveBorder {
     0% {
-        transform: rotate(0deg);
+        border-image-source: linear-gradient(
+            to right,
+            #ff6347 0%,
+            transparent 25%,
+            transparent 75%,
+            #ff6347 100%
+        );
+    }
+    25% {
+        border-image-source: linear-gradient(
+            to bottom,
+            #ff6347 0%,
+            transparent 25%,
+            transparent 75%,
+            #ff6347 100%
+        );
+    }
+    50% {
+        border-image-source: linear-gradient(
+            to left,
+            #ff6347 0%,
+            transparent 25%,
+            transparent 75%,
+            #ff6347 100%
+        );
+    }
+    75% {
+        border-image-source: linear-gradient(
+            to top,
+            #ff6347 0%,
+            transparent 25%,
+            transparent 75%,
+            #ff6347 100%
+        );
     }
     100% {
-        transform: rotate(360deg);
+        border-image-source: linear-gradient(
+            to right,
+            #ff6347 0%,
+            transparent 25%,
+            transparent 75%,
+            #ff6347 100%
+        );
     }
 }
 /*конец блока анимации рамки*/
