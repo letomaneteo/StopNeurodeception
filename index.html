@@ -270,67 +270,28 @@ a.grid-item {
 .running-border-block::before {
     content: '';
     position: absolute;
-    inset: 0; /* Занимает весь блок */
-    border: 2px solid transparent;
+    inset: -2px; /* Слегка расширяем, чтобы рамка была по краям */
     border-radius: 10px;
-    background: 
-        /* Верхняя сторона */
-        linear-gradient(to right, transparent, #ff0000, transparent) top,
-        /* Правая сторона */
-        linear-gradient(to bottom, transparent, #00ff00, transparent) right,
-        /* Нижняя сторона */
-        linear-gradient(to left, transparent, #0000ff, transparent) bottom,
-        /* Левая сторона */
-        linear-gradient(to top, transparent, #ff0000, transparent) left;
-    background-size: 
-        100% 2px, /* Верх */
-        2px 100%, /* Право */
-        100% 2px, /* Низ */
-        2px 100%; /* Лево */
-    background-repeat: no-repeat;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0% 80%, /* Прозрачная часть */
+        #ff6347 80% 90%, /* Основной цвет линии */
+        transparent 90% 100% /* Снова прозрачная часть */
+    );
     -webkit-mask: 
         linear-gradient(#fff 0 0) padding-box,
         linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
-    animation: moveBorder 2s linear infinite;
+    animation: rotateBorder 2s linear infinite;
 }
 
-@keyframes moveBorder {
+@keyframes rotateBorder {
     0% {
-        background-position: 
-            0% 0%,  /* Верх: начало */
-            100% 0%, /* Право: начало */
-            100% 100%, /* Низ: начало */
-            0% 100%; /* Лево: начало */
-    }
-    25% {
-        background-position: 
-            100% 0%, /* Верх: конец */
-            100% 0%, /* Право: начало */
-            100% 100%, /* Низ: начало */
-            0% 100%; /* Лево: начало */
-    }
-    50% {
-        background-position: 
-            100% 0%, /* Верх: конец */
-            100% 100%, /* Право: конец */
-            100% 100%, /* Низ: начало */
-            0% 100%; /* Лево: начало */
-    }
-    75% {
-        background-position: 
-            100% 0%, /* Верх: конец */
-            100% 100%, /* Право: конец */
-            0% 100%, /* Низ: конец */
-            0% 100%; /* Лево: начало */
+        transform: rotate(0deg);
     }
     100% {
-        background-position: 
-            0% 0%, /* Верх: начало */
-            100% 0%, /* Право: начало */
-            100% 100%, /* Низ: начало */
-            0% 0%; /* Лево: конец */
+        transform: rotate(360deg);
     }
 }
 /*конец блока анимации рамки*/
