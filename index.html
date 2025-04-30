@@ -202,11 +202,29 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
 }  
 .grid-gallery {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  padding: 20px;
-  max-width: 1200px;
+  grid-template-columns: repeat(4, 1fr); /* 4 колонки */
+  gap: 24px;
+  padding: 24px;
+  max-width: 1400px; /* Увеличенная ширина */
   margin: 0 auto;
+}
+
+@media (max-width: 1100px) {
+  .grid-gallery {
+    grid-template-columns: repeat(3, 1fr); /* 3 колонки на планшете */
+  }
+}
+
+@media (max-width: 768px) {
+  .grid-gallery {
+    grid-template-columns: repeat(2, 1fr); /* 2 на телефоне */
+  }
+}
+
+@media (max-width: 480px) {
+  .grid-gallery {
+    grid-template-columns: 1fr; /* 1 на очень маленьком экране */
+  }
 }
 
 .grid-item {
