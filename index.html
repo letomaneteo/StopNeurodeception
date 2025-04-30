@@ -211,19 +211,27 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
 
 .grid-item {
   background-color: rgba(255, 255, 255, 0.85);
-  border-radius: 0px;
+  border-radius: 10px;
   overflow: hidden;
-  text-align: center;
+  text-align: left; /* меняем с center на left */
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  text-decoration: none; /* убираем подчёркивание */
-  color: inherit; /* используем нормальный цвет текста */
-  display: block;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* растягиваем содержимое */
 }
 
 .grid-item h3 {
-  font-size: 12px;
-  margin: 10px 0 5px;
-  color: #111; /* или другой тёмный цвет */
+  font-size: 18px;
+  margin: 15px;
+  color: #111; /* темный цвет текста */
+  flex-grow: 1; /* позволяет заголовку "расти", занимая пространство */
+}
+
+.grid-item p {
+  margin: 0 15px 15px; /* отступы для текста */
+  font-size: 14px;
+  color: #444; /* мягкий серый */
+  flex-grow: 2; /* делает текст немного "растянутым" по вертикали */
 }
 
 .grid-item img {
@@ -232,11 +240,6 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
   display: block;
 }
 
-.grid-item p {
-  margin: 5px 10px 10px;
-  font-size: 13px;
-  color: #444; /* мягкий серый */
-}
 
 /* Адаптивность */
 @media (max-width: 900px) {
@@ -468,7 +471,7 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
     <img src="https://raw.githubusercontent.com/letomaneteo/StopNeurodeception/main/SAID1-01.png" alt="Логотип" class="top-banner-logo">
   </div>
   <div class="top-banner-text">
-    Международная инициативная группа по борьбе с использованием реалистичных генераций в нейросетях для совершения обмана и правонарушений (SAID)
+    Международная инициативная группа по борьбе с использованием реалистичных генераций в нейросетях для целей обмана и правонарушений (SAID)
   </div>
 </div>
 
@@ -480,7 +483,7 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
   <a href="https://example.com/ai-future" class="grid-item">
     <img src="https://i.imgur.com/nk6xmnR.png" alt="AI Future">
     <div class="text-content">
-      <h3>БУДУЩЕЕ С ИСКУСТВЕННЫМ ИНТЕЛЕКТОМ ДЛЯ КАЖДОГО УЖЕ БЛИЗКО. КАКИМ ОНО БУДТ?</h3>
+      <h3>БУДУЩЕЕ С ИСКУСТВЕННЫМ ИНТЕЛЕКТОМ ДЛЯ КАЖДОГО УЖЕ БЛИЗКО. КАКИМ ОНО БУДЕТ?</h3>
       <p>Будущее с искусственным интеллектом приближается.</p>
       <p>Каким оно будет?</p>
     </div>
