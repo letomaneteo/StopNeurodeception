@@ -215,6 +215,15 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
   overflow: hidden;
   text-align: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none; /* убираем подчёркивание */
+  color: inherit; /* используем нормальный цвет текста */
+  display: block;
+}
+
+.grid-item h3 {
+  font-size: 16px;
+  margin: 10px 0 5px;
+  color: #111; /* или другой тёмный цвет */
 }
 
 .grid-item img {
@@ -224,9 +233,9 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
 }
 
 .grid-item p {
-  margin: 10px;
-  font-size: 14px;
-  color: #333;
+  margin: 5px 10px 10px;
+  font-size: 13px;
+  color: #444; /* мягкий серый */
 }
 
 /* Адаптивность */
