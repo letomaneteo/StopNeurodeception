@@ -265,73 +265,19 @@ a.grid-item {
     overflow: hidden;
     z-index: 1;
     background-color: rgba(255, 255, 255, 0.85);
-    border: 2px solid transparent; /* Прозрачная рамка для border-image */
+    border: none; /* Убираем стандартную рамку */
     box-sizing: border-box;
 }
 
-.running-border-block::before {
-    content: '';
+/* Стили для SVG рамки */
+.running-border-block svg {
     position: absolute;
-    inset: 0;
-    border-radius: 10px;
-    border: 2px solid transparent;
-    border-image: linear-gradient(
-        to right,
-        #ff6347 0%, /* Яркий цвет для линии */
-        transparent 25%,
-        transparent 75%,
-        #ff6347 100%
-    ) 1;
-    border-image-slice: 1;
-    animation: moveBorder 2s linear infinite;
-}
-
-@keyframes moveBorder {
-    0% {
-        border-image-source: linear-gradient(
-            to right,
-            #ff6347 0%,
-            transparent 25%,
-            transparent 75%,
-            #ff6347 100%
-        );
-    }
-    25% {
-        border-image-source: linear-gradient(
-            to bottom,
-            #ff6347 0%,
-            transparent 25%,
-            transparent 75%,
-            #ff6347 100%
-        );
-    }
-    50% {
-        border-image-source: linear-gradient(
-            to left,
-            #ff6347 0%,
-            transparent 25%,
-            transparent 75%,
-            #ff6347 100%
-        );
-    }
-    75% {
-        border-image-source: linear-gradient(
-            to top,
-            #ff6347 0%,
-            transparent 25%,
-            transparent 75%,
-            #ff6347 100%
-        );
-    }
-    100% {
-        border-image-source: linear-gradient(
-            to right,
-            #ff6347 0%,
-            transparent 25%,
-            transparent 75%,
-            #ff6347 100%
-        );
-    }
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* SVG за контентом */
+    pointer-events: none; /* Не блокирует взаимодействие */
 }
 /*конец блока анимации рамки*/
 @media (max-width: 600px) {
@@ -650,13 +596,25 @@ a.grid-item {
   </div>
 </a>
 
-  <a href="https://example.com/ai-future" class="grid-item smooth-border-block">
-  <img src="https://i.imgur.com/nk6xmnR.png" alt="AI Future">
-  <div class="text-content">
-    <h3>БУДУЩЕЕ ВМЕСТЕ С ИСКУСТВЕННЫМ ИНТЕЛЛЕКТОМ. КАКИМ ОНО БУДЕТ ДЛЯ КАЖДОГО?</h3>
-    <p>Будущее с искусственным интеллектом приближается.</p>
-    <p>Каким оно будет?</p>
-  </div>
+  <a href="https://example.com/ai-future" class="grid-item running-border-block">
+    <svg class="border-svg" width="100%" height="100%">
+        <defs>
+            <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:transparent" />
+                <stop offset="20%" style="stop-color:#ff6347" />
+                <stop offset="25%" style="stop-color:transparent" />
+            </linearGradient>
+        </defs>
+        <rect x="1" y="1" width="calc(100% - 2)" height="calc(100% - 2)" fill="none" stroke="url(#borderGradient)" stroke-width="2">
+            <animate attributeName="stroke-dashoffset" from="0" to="-100" dur="2s" repeatCount="indefinite" />
+        </rect>
+    </svg>
+    <img src="https://i.imgur.com/nk6xmnR.png" alt="AI Future">
+    <div class="text-content">
+        <h3>БУДУЩЕЕ ВМЕСТЕ С ИСКУСТВЕННЫМ ИНТЕЛЛЕКТОМ. КАКИМ ОНО БУДЕТ ДЛЯ КАЖДОГО?</h3>
+        <p>Будущее с искусственным интеллектом приближается.</p>
+        <p>Каким оно будет?</p>
+    </div>
 </a>
     
  <a href="https://example.com/ai-future" class="grid-item running-border-block">
