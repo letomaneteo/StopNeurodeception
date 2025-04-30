@@ -482,56 +482,74 @@ a.grid-item {
   }
 }
 @media (min-width: 1200px) {
-  .grid-item h3 {
-    font-size: 16px; /* был 22px */
-  }
-#about {
-    margin-bottom: 10px; /* уменьшаем отступ снизу */
-  }
-  .grid-item p {
-    font-size: 13px; /* был 18px */
-  }
-
-  .modal-window {
-    height: 75%; /* немного выше */
-    font-size: 20px;
-  }
-
-  .fade-in, .text-orange {
-    font-size: 50px; /* текст выше баннера */
-  }
-
-  .main-content {
-    padding: 120px 100px;
+  /* Шапка сайта */
+  .header {
+    height: 90px;
   }
 
   .header h1 {
-    font-size: 34px; /* название сайта больше */
+    font-size: 34px;
+    top: 10px;
   }
-    
+
   .header p.subtitle {
-    font-size: 18px; /* или больше */
+    font-size: 18px;
+    bottom: 8px;
   }
+
   .header .nav a {
     font-size: 20px;
   }
 
+  /* Кнопка модалки */
   .modal-button {
     font-size: 22px;
     padding: 16px 28px;
   }
 
+  /* Модальное окно */
+  .modal-window {
+    height: 75%;
+    font-size: 20px;
+  }
+
+  /* Основной отступ страницы */
+  .main-content {
+    padding: 120px 100px;
+  }
+
+  /* Текст в баннере */
   .top-banner-text {
     font-size: 20px;
   }
 
+  /* Анимированный текст */
+  .fade-in,
+  .text-orange {
+    font-size: 50px;
+  }
+
+  /* Сетка карточек */
   .grid-gallery {
-    gap: 32px; /* увеличить расстояние между блоками */
+    gap: 32px;
     padding: 32px;
   }
 
   .grid-item {
-    padding: 10px; /* добавить внутренний отступ если нужно */
+    padding: 10px;
+  }
+
+  .grid-item h3 {
+    font-size: 16px; /* уменьшенный заголовок */
+  }
+
+  .grid-item p {
+    font-size: 13px; /* уменьшенный основной текст */
+  }
+
+  /* Отступ секции about */
+  #about {
+    margin-bottom: 10px;
   }
 }
 
