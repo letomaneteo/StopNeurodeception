@@ -257,7 +257,117 @@ a.grid-item {
   text-decoration: none;
   color: inherit;
 }
+        /*начало блока анимации рамки*/
+.animated-border {
+  position: relative;
+  /* Your existing element styles here */
+  padding: 20px;
+  border-radius: 10px;
+  overflow: hidden; /* Important to keep the animation within bounds */
+  z-index: 1;
+}
 
+/* Create the animated border effect */
+.animated-border::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  z-index: -1;
+  background: linear-gradient(
+    45deg,
+    #ff0000, #ff7300, #fffb00, #48ff00,
+    #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000
+  );
+  background-size: 400% 400%;
+  border-radius: 12px; /* Slightly larger than the main element */
+  animation: borderAnimation 10s linear infinite;
+}
+
+/* Add a background behind the content */
+.animated-border::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background: inherit; /* Or use a specific color like rgba(255,255,255,0.9) */
+  border-radius: 8px; /* Slightly smaller than the main element */
+  z-index: -1;
+}
+
+/* Animation keyframes */
+@keyframes borderAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Simpler animation option with just changing colors */
+.pulse-border {
+  border: 2px solid #ff6347;
+  animation: pulseBorder 2s infinite;
+}
+
+@keyframes pulseBorder {
+  0% {
+    border-color: #ff6347;
+  }
+  50% {
+    border-color: #4B0082;
+  }
+  100% {
+    border-color: #ff6347;
+  }
+}
+
+/* Rotating border option */
+.rotating-border {
+  position: relative;
+  z-index: 1;
+}
+
+.rotating-border::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -2px;
+  background: conic-gradient(
+    from 0deg,
+    #ff0000, #ff7300, #fffb00, #48ff00,
+    #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000
+  );
+  border-radius: 12px;
+  animation: rotateBorder 4s linear infinite;
+}
+
+.rotating-border::after {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 2px;
+  background: inherit;
+  border-radius: 8px;
+}
+
+@keyframes rotateBorder {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/*конец блока анимации рамки*/
 @media (max-width: 600px) {
   .grid-gallery {
     grid-template-columns: 1fr;
@@ -564,14 +674,14 @@ a.grid-item {
     </div>
   </a>
 
-  <a href="https://example.com/space-colony" class="grid-item">
-    <img src="image2.jpg" alt="Space Colony">
-    <div class="text-content">
-      <h3>LIFE BEYOND EARTH</h3>
-      <p>Колонии на других планетах — не фантастика.</p>
-      <p>Это вопрос времени.</p>
-    </div>
-  </a>
+  <a href="https://example.com/ai-future" class="grid-item animated-border-block">
+  <img src="https://i.imgur.com/nk6xmnR.png" alt="AI Future">
+  <div class="text-content">
+    <h3>БУДУЩЕЕ ВМЕСТЕ С ИСКУСТВЕННЫМ ИНТЕЛЛЕКТОМ. КАКИМ ОНО БУДЕТ ДЛЯ КАЖДОГО?</h3>
+    <p>Будущее с искусственным интеллектом приближается.</p>
+    <p>Каким оно будет?</p>
+  </div>
+</a>
 
   <a href="https://example.com/cybernetics" class="grid-item">
     <img src="image3.jpg" alt="Cybernetics">
