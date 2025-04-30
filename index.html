@@ -204,6 +204,7 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 колонки */
   gap: 24px;
+  margin-top: 0;
   padding: 24px;
   max-width: 1400px; /* Увеличенная ширина */
   margin: 0 auto;
@@ -470,43 +471,55 @@ a.grid-item {
 }
 @media (min-width: 1200px) {
   .grid-item h3 {
-    font-size: 22px;
+    font-size: 26px; /* был 22px */
   }
-
+#about {
+    margin-bottom: 10px; /* уменьшаем отступ снизу */
+  }
   .grid-item p {
-    font-size: 18px;
+    font-size: 20px; /* был 18px */
   }
 
   .modal-window {
-    height: 70%;
-    font-size: 18px;
+    height: 75%; /* немного выше */
+    font-size: 20px;
   }
 
   .fade-in, .text-orange {
-    font-size: 30px;
+    font-size: 34px; /* текст выше баннера */
   }
 
   .main-content {
-    padding: 100px 80px;
+    padding: 120px 100px;
   }
 
   .header h1 {
-    font-size: 26px;
+    font-size: 30px; /* название сайта больше */
   }
 
   .header .nav a {
-    font-size: 18px;
+    font-size: 20px;
   }
 
   .modal-button {
-    font-size: 20px;
-    padding: 14px 24px;
+    font-size: 22px;
+    padding: 16px 28px;
   }
 
   .top-banner-text {
-    font-size: 18px;
+    font-size: 20px;
   }
-}        
+
+  .grid-gallery {
+    gap: 32px; /* увеличить расстояние между блоками */
+    padding: 32px;
+  }
+
+  .grid-item {
+    padding: 10px; /* добавить внутренний отступ если нужно */
+  }
+}
+
     </style>
 </head>
 <body>
