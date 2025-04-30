@@ -214,11 +214,12 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
   background-color: rgba(255, 255, 255, 0.85);
   border-radius: 10px;
   overflow: hidden;
-  text-align: left; /* меняем с center на left */
+  text-align: left;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* растягиваем содержимое */
+  justify-content: flex-start; /* изменено с space-between */
+  height: auto; /* блок подстраивается под содержимое */
 }
 
 .grid-item h3 {
@@ -237,11 +238,10 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
 
 .grid-item img {
   width: 100%;
-  height: 300px; /* можно увеличить до 300px или больше */
-  object-fit: cover; /* обрезка изображения по контейнеру */
+  height: auto; /* сохраняем пропорции */
+  object-fit: contain; /* НЕ обрезает изображение */
   display: block;
 }
-
 
 a.grid-item {
   text-decoration: none;
