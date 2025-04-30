@@ -195,7 +195,7 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
   font-size: 24px; /* Размер текста */
   color: #fff; /* Яркий белый цвет текста */
   text-align: center; /* Центрирование текста */
-  margin-top: 10px;
+  margin-top: 20px;
 }
 /* Дополнительный класс для изменения цвета */
 .text-orange {
@@ -257,29 +257,7 @@ a.grid-item {
   text-decoration: none;
   color: inherit;
 }
-        /*начало блока анимации рамки*/
-/* Стили для блока с анимированной рамкой */
-.running-border-block {
-    position: relative;
-    border-radius: 10px;
-    overflow: hidden;
-    z-index: 1;
-    background-color: rgba(255, 255, 255, 0.85);
-    border: none; /* Убираем стандартную рамку */
-    box-sizing: border-box;
-}
 
-/* Стили для SVG рамки */
-.running-border-block svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1; /* SVG за контентом */
-    pointer-events: none; /* Не блокирует взаимодействие */
-}
-/*конец блока анимации рамки*/
 @media (max-width: 600px) {
   .grid-gallery {
     grid-template-columns: 1fr;
@@ -512,9 +490,8 @@ a.grid-item {
     font-size: 20px;
   }
 
-  .fade-in.text-orange {
-    font-size: 30px !important; /* Увеличенный размер только для оранжевого текста */
-    line-height: 1.2; /* Для читаемости */
+  .fade-in, .text-orange {
+    font-size: 34px; /* текст выше баннера */
   }
 
   .main-content {
@@ -540,7 +517,7 @@ a.grid-item {
 
   .grid-gallery {
     gap: 32px; /* увеличить расстояние между блоками */
-    padding: -10px;
+    padding: 32px;
   }
 }
 
@@ -587,44 +564,32 @@ a.grid-item {
     </div>
   </a>
 
-  <a href="https://example.com/ai-future" class="grid-item running-border-block">
-  <img src="https://i.imgur.com/nk6xmnR.png" alt="AI Future">
-  <div class="text-content">
-    <h3>БУДУЩЕЕ ВМЕСТЕ С ИСКУСТВЕННЫМ ИНТЕЛЛЕКТОМ. КАКИМ ОНО БУДЕТ ДЛЯ КАЖДОГО?</h3>
-    <p>Будущее с искусственным интеллектом приближается.</p>
-    <p>Каким оно будет?</p>
-  </div>
-</a>
-
-  <a href="https://example.com/ai-future" class="grid-item running-border-block">
-    <svg class="border-svg" width="100%" height="100%">
-        <defs>
-            <linearGradient id="borderGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:transparent" />
-                <stop offset="20%" style="stop-color:#ff6347" />
-                <stop offset="25%" style="stop-color:transparent" />
-            </linearGradient>
-        </defs>
-        <rect x="1" y="1" width="calc(100% - 2)" height="calc(100% - 2)" fill="none" stroke="url(#borderGradient)" stroke-width="2">
-            <animate attributeName="stroke-dashoffset" from="0" to="-100" dur="2s" repeatCount="indefinite" />
-        </rect>
-    </svg>
-    <img src="https://i.imgur.com/nk6xmnR.png" alt="AI Future">
+  <a href="https://example.com/space-colony" class="grid-item">
+    <img src="image2.jpg" alt="Space Colony">
     <div class="text-content">
-        <h3>БУДУЩЕЕ ВМЕСТЕ С ИСКУСТВЕННЫМ ИНТЕЛЛЕКТОМ. КАКИМ ОНО БУДЕТ ДЛЯ КАЖДОГО?</h3>
-        <p>Будущее с искусственным интеллектом приближается.</p>
-        <p>Каким оно будет?</p>
+      <h3>LIFE BEYOND EARTH</h3>
+      <p>Колонии на других планетах — не фантастика.</p>
+      <p>Это вопрос времени.</p>
     </div>
-</a>
+  </a>
+
+  <a href="https://example.com/cybernetics" class="grid-item">
+    <img src="image3.jpg" alt="Cybernetics">
+    <div class="text-content">
+      <h3>HUMAN 2.0</h3>
+      <p>Границы между человеком и машиной стираются.</p>
+      <p>Будущее тела — кибернетика.</p>
+    </div>
+  </a>
     
- <a href="https://example.com/ai-future" class="grid-item running-border-block">
-  <img src="https://i.imgur.com/nk6xmnR.png" alt="AI Future">
-  <div class="text-content">
-    <h3>БУДУЩЕЕ ВМЕСТЕ С ИСКУСТВЕННЫМ ИНТЕЛЛЕКТОМ. КАКИМ ОНО БУДЕТ ДЛЯ КАЖДОГО?</h3>
-    <p>Будущее с искусственным интеллектом приближается.</p>
-    <p>Каким оно будет?</p>
-  </div>
-</a>
+ <a href="https://example.com/cybernetics" class="grid-item">
+    <img src="image3.jpg" alt="Cybernetics">
+    <div class="text-content">
+      <h3>HUMAN 2.0</h3>
+      <p>Границы между человеком и машиной стираются.</p>
+      <p>Будущее тела — кибернетика.</p>
+    </div>
+  </a>
     
 <a href="https://example.com/cybernetics" class="grid-item">
     <img src="image3.jpg" alt="Cybernetics">
