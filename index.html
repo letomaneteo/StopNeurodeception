@@ -237,9 +237,11 @@ border: 2px solid rgba(173, 169, 186, 0.8);/* Толщина, цвет и про
 
 .grid-item img {
   width: 100%;
-  height: auto;
+  height: 300px; /* можно увеличить до 300px или больше */
+  object-fit: cover; /* обрезка изображения по контейнеру */
   display: block;
 }
+
 
 a.grid-item {
   text-decoration: none;
