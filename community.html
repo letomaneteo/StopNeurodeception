@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STOP AI DECEPTION </title>
+  <!-- Русская версия -->
+  <meta name="description"
+    content="Защита от нейросетевого обмана, безопасность искусственного интеллекта, генеративные модели и цифровая этика. Международное сообщество против ИИ-манипуляций.">
+  <meta name="keywords"
+    content="нейросети, безопасность, искусственный интеллект, защита от ИИ, ИИ-обман, deepfake, генеративный ИИ, кибербезопасность, цифровая этика, цифровая защита, нейроугрозы, борьба с ИИ, нейромошенничество, машинное обучение, ответственность ИИ, противодействие ИИ, цифровое доверие">
+  <meta name="robots" content="index, follow">
+
+  <!-- English version -->
+  <meta name="description"
+    content="Protecting against AI deception, neural network threats, generative models, and digital ethics. International initiative against AI manipulation.">
+  <meta name="keywords"
+    content="neural networks, AI security, artificial intelligence, deepfake protection, AI deception, generative AI, cybersecurity, digital ethics, AI threats, responsible AI, AI ethics, machine learning, AI regulation, combating AI fraud, algorithmic trust, AI transparency, AI manipulation">
+  <meta name="robots" content="index, follow">
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap&subset=cyrillic"
+    rel="stylesheet">
+  <!-- Вставьте в <head> -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Exo 2', sans-serif;
+      background-image: url('zima3.jpg');
+      background-position: center center;
+      background-size: cover;
+      background-attachment: fixed;
+      /* Фон остаётся на месте */
+    }
+
+    /* Сжатая шапка */
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      /* Фиксированная высота */
+      background-color: #313a47;
+      /* Цвет шапки */
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .header h1 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      margin: 0;
+      font-size: 20px;
+      /* Можно увеличить размер текста */
+      font-weight: bold;
+    }
+
+    .header .subtitle {
+      position: absolute;
+      bottom: 5px;
+      /* Расстояние от нижнего края шапки */
+      left: 50%;
+      transform: translateX(-50%);
+      /* Центрирует по горизонтали */
+      font-size: 17px;
+      color: #ffffff;
+      /* Цвет текста */
+      margin: 0;
+    }
+
+    .header img {
+      height: 30px;
+      /* Логотип */
+      margin-right: 3px;
+    }
+
+    .header .nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    .header .nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header .nav a:hover {
+      color: #ff6347;
+    }
+
+    /* Мобильное меню */
+    .menu-toggle {
+      display: none;
+      margin-top: 10px;
+    }
+
+    .centered-text {
+      text-align: center;
+      color: #E8EDE7;
+    }
+
+    .justified-text {
+      text-align: justify;
+      color: #E8EDE7;
+    }
+
+    #video-section {
+      width: 100%;
+      height: 400px;
+      /* или 500px, если хотите больше высоту */
+      overflow: hidden;
+      /* Скрывает часть контента, выходящего за пределы */
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    .modal-button {
+      padding: 10px 20px;
+      font-size: 18px;
+      color: #fff;
+      background: #ADA9BA;
+      border: none;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-button:hover {
+      background: #E9E9E9;
+      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .modal {
+      display: none;
+      /* Скрыто по умолчанию */
+      position: fixed;
+      /* Фиксированное положение */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+    }
+
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      /* Полупрозрачный фон */
+      z-index: 1;
+    }
+
+    .modal-window {
+      position: absolute;
+      top: 50%;
+      /* Центрирование по вертикали */
+      left: 50%;
+      /* Центрирование по горизонтали */
+      transform: translate(-50%, -50%);
+      /* Смещение для центрирования */
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      border: 2px solid rgba(173, 169, 186, 0.8);
+      /* Толщина, цвет и прозрачность рамки */
+      width: 70%;
+      /* Ширина окна */
+      max-width: 800px;
+      /* Максимальная ширина */
+      height: 50%;
+      /* Увеличенная высота */
+      overflow: hidden;
+      /* Убрать прокрутку */
+      z-index: 2;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      /* Тень */
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 40px;
+      color: #8a0606;
+      transition: color 0.3s ease;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
+    .modal-window iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      /* Убрать границы iframe */
+    }
+
+    .fade-in {
+      opacity: 0;
+      /* Изначально невидимый */
+      animation: fade-in-out 6s ease-in-out infinite;
+      /* Бесконечная анимация с увеличенным временем */
+      font-size: 24px;
+      /* Размер текста */
+      color: #fff;
+      /* Яркий белый цвет текста */
+      text-align: center;
+      /* Центрирование текста */
+      margin-top: 20px;
+    }
+
+    /* Дополнительный класс для изменения цвета */
+    .text-orange {
+      color: #302775;
+      /* Цвет текста */
+      text-shadow: 1px 1px 2px rgba(48, 39, 117, 0.4);
+      /* Тень текста */
+      display: flex;
+      justify-content: center;
+      /* Центрирование по горизонтали */
+      align-items: center;
+      /* Центрирование по вертикали */
+      text-align: center;
+      /* Центрируем текст внутри */
+      padding: 5px 0;
+      /* Меньшие отступы сверху и снизу */
+      line-height: 1.2;
+      /* Меньше расстояние между строками */
+      width: 80%;
+      /* Ограничиваем ширину текста */
+      margin: 0 auto;
+      /* Центрируем блок по горизонтали */
+    }
+
+    .grid-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      /* 4 колонки */
+      gap: 32px;
+      margin-top: 0;
+      padding: 24px;
+      max-width: 1400px;
+      /* Увеличенная ширина */
+      margin: 0 auto;
+    }
+
+    .grid-item {
+      background-color: rgba(255, 255, 255, 0.85);
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: left;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      /* изменено с space-between */
+      height: auto;
+      /* блок подстраивается под содержимое */
+    }
+
+    .grid-item h3 {
+      font-size: 15px;
+      margin: 15px;
+      color: #111;
+      /* темный цвет текста */
+      flex-grow: 1;
+      /* позволяет заголовку "расти", занимая пространство */
+    }
+
+    .grid-item p {
+      margin: 0 15px 15px;
+      /* отступы для текста */
+      font-size: 14px;
+      color: #444;
+      /* мягкий серый */
+      flex-grow: 2;
+      /* делает текст немного "растянутым" по вертикали */
+    }
+
+    .grid-item img {
+      width: 100%;
+      height: auto;
+      /* сохраняем пропорции */
+      object-fit: contain;
+      /* НЕ обрезает изображение */
+      display: block;
+    }
+
+    a.grid-item {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    @media (max-width: 600px) {
+      .grid-gallery {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @keyframes fade-in-out {
+
+      0%,
+      30% {
+        opacity: 0;
+        /* Прозрачность в начале и в конце */
+      }
+
+      50%,
+      70% {
+        opacity: 1;
+        /* Полностью видно в середине */
+      }
+
+      100% {
+        opacity: 0;
+        /* Снова исчезает в конце */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .menu-toggle {
+        display: block;
+        cursor: pointer;
+        font-size: 24px;
+        color: white;
+      }
+
+      .header .nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: rgba(38, 38, 69, 0.8);
+        position: absolute;
+        left: 0;
+        top: 60px;
+        z-index: 999;
+        padding: 10px 0;
+      }
+
+      .header .nav.active {
+        display: flex;
+      }
+
+      #login-link {
+        text-align: center;
+        /* Явно центрируем "Войти" */
+      }
+
+      .header h1 {
+        font-size: 24px;
+        /* Увеличенный размер заголовка */
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        /* Центрирование по горизонтали */
+        top: 8px;
+        /* Сдвиг сверху для вертикального размещения */
+        margin: 0;
+        font-weight: bold;
+        white-space: nowrap;
+        /* Предотвращает перенос текста */
+        z-index: 10;
+        /* На случай перекрытия */
+      }
+
+      .header p.subtitle {
+        font-size: 16px;
+        /* Увеличенный размер подзаголовка */
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        /* Центрирование по горизонтали */
+        bottom: 5px;
+        /* Сдвиг снизу для размещения под заголовком */
+        margin: 0;
+        white-space: nowrap;
+        /* Предотвращает перенос текста */
+        z-index: 10;
+        /* На случай перекрытия */
+      }
+    }
+
+    .main-content {
+      padding: 70px 20px;
+      /* Отступ сверху для основного контента */
+    }
+
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section h2 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .section p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .animation-container {
+      text-align: center;
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      height: 600px;
+      margin: 20px auto;
+      background: white;
+      border-radius: 15px;
+      border: 1px solid #ccc;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    @media (max-width: 768px) {
+      .animation-container {
+        height: 400px;
+      }
+    }
+
+    .video-container {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+      margin: 20px 0;
+    }
+
+    .video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .next-link {
+      color: #ffffff;
+      /* Цвет текста по умолчанию */
+      text-decoration: none;
+      /* Убираем подчеркивание */
+    }
+
+    .next-link:hover {
+      color: #ff6347;
+      /* Цвет текста при наведении */
+    }
+
+    .next-link:active {
+      color: #F7C815;
+      /* Цвет текста при клике */
+    }
+
+    .page-links a {
+      text-decoration: none;
+      color: #ffffff;
+      /* Цвет обычной ссылки */
+    }
+
+    .page-links a:hover {
+      color: #F7C815;
+      /* Цвет ссылки при наведении */
+    }
+
+    .page-links a.active {
+      color: #F7C815;
+      /* Цвет активной ссылки (текущей страницы) */
+      font-weight: bold;
+      /* Дополнительное выделение */
+    }
+
+    .top-banner {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      background-color: white;
+      padding: 8px 16px;
+      margin-top: 60px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      gap: 12px;
+      overflow: hidden;
+    }
+
+    .top-banner-left {
+      flex-shrink: 0;
+    }
+
+    .top-banner-logo {
+      height: 28px;
+      width: auto;
+      display: block;
+    }
+
+    .top-banner-text {
+      flex: 1;
+      font-size: 15px;
+      font-weight: bold;
+      color: #000;
+      line-height: 1.3;
+      word-break: break-word;
+    }
+
+    /* Мобильная адаптация */
+    @media (max-width: 600px) {
+      .top-banner {
+        flex-direction: row;
+        align-items: center;
+        padding: 8px 12px;
+      }
+
+      .top-banner-logo {
+        margin-bottom: 0;
+        margin-right: 8px;
+        height: 40px;
+        /* чуть меньше */
+      }
+
+      .top-banner-text {
+        font-size: 14px;
+        text-align: left;
+      }
+    }
+
+    @media (max-width: 1100px) {
+      .grid-gallery {
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 колонки на планшете */
+      }
+    }
+
+    @media (max-width: 768px) {
+      .grid-gallery {
+        grid-template-columns: repeat(2, 1fr);
+        /* 2 на телефоне */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid-gallery {
+        grid-template-columns: 1fr;
+        /* 1 на очень маленьком экране */
+      }
+    }
+
+    @media (min-width: 1200px) {
+      .grid-item h3 {
+        font-size: 16px;
+        /* был 22px */
+      }
+
+      #about {
+        margin-bottom: 10px;
+        /* уменьшаем отступ снизу */
+      }
+
+      .grid-item p {
+        font-size: 13px;
+        /* был 18px */
+      }
+
+      .modal-window {
+        height: 75%;
+        /* немного выше */
+        font-size: 20px;
+      }
+
+      .fade-in,
+      .text-orange {
+        font-size: 34px;
+        /* текст выше баннера */
+      }
+
+      .main-content {
+        padding: 120px 100px;
+      }
+
+      .header h1 {
+        font-size: 30px;
+        /* название сайта больше */
+      }
+
+      .header .nav a {
+        font-size: 20px;
+      }
+
+      .modal-button {
+        font-size: 22px;
+        padding: 16px 28px;
+      }
+
+      .top-banner-text {
+        font-size: 20px;
+      }
+
+      .grid-gallery {
+        gap: 32px;
+        /* увеличить расстояние между блоками */
+        padding: 32px;
+      }
+    }
+
+    .user-entry {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .user-entry img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      border: 2px solid white;
+      background-color: #ccc;
+    }
+
+    .auth-buttons button {
+      padding: 8px 16px;
+      font-size: 16px;
+      color: #fff;
+      background: #ADA9BA;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 4px;
+      transition: background 0.3s ease;
+    }
+
+    .auth-buttons button:hover {
+      background: #E9E9E9;
+      color: black;
+    }
+
+    /* Модальное окно авторизации */
+    #login-modal .modal-window {
+      width: 90%;
+      max-width: 400px;
+      height: auto;
+      padding: 30px;
+      text-align: center;
+    }
+
+    @media (max-width: 600px) {
+      #login-modal .modal-window {
+        width: 95%;
+        padding: 20px;
+      }
+
+      #login-modal .auth-buttons button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="container">
+      <a href="site.html">
+        <img src="https://raw.githubusercontent.com/letomaneteo/myweb/main/AILOGO.gif" alt="Логотип"
+          style="background-color: transparent;">
+      </a>
+      <h1>СТОП НЕЙРООБМАН</h1>
+      <p class="subtitle" style="color: #FFFFFF;">ВНИМАТЕЛЬНО СМОТРИМ В БУДУЩЕЕ</p>
+      <nav class="nav">
+        <a href="2danimation.html">УЧИМСЯ НОВОМУ</a>
+        <a href="uslugicenu.html">Сообщество</a>
+        <a href="pagecontact.html">Контакты</a>
+        <a href="javascript:void(0)" id="login-link">Войти</a>
+        <div id="user-info" style="display: none; align-items: center; gap: 8px;">
+          <img id="user-photo" src="default-avatar.png" alt="Пользователь"
+            style="width: 30px; height: 30px; border-radius: 50%;" />
+          <button onclick="signOut()"
+            style="font-size: 14px; padding: 4px 8px; border: none; background: #fff; color: #313a47; border-radius: 4px; cursor: pointer;">Выйти</button>
+        </div>
+      </nav>
+      <div class="menu-toggle" id="menuToggle">&#9776;</div>
+    </div>
+  </header>
+  <div class="top-banner">
+    <div class="top-banner-left">
+      <img src="https://raw.githubusercontent.com/letomaneteo/StopNeurodeception/main/SAID1-01.png" alt="Логотип"
+        class="top-banner-logo">
+    </div>
+    <div class="top-banner-text">
+      Международная инициативная группа по борьбе с использованием реалистичных генераций в нейросетях в целях обмана и
+      правонарушений (SAID)
+    </div>
+  </div>
+
+  <section class="section" id="about">
+    <p class="fade-in text-orange">ИИ - НЕ ВРАГ, А ПОМОЩНИК!</p>
+    <div class="user-entry">
+      <img id="user-photo" src="default-avatar.png" alt="Пользователь" />
+    </div>
+  </section>
+
+  <section class="grid-gallery">
+    <a href="https://example.com/ai-future" class="grid-item">
+      <img src="https://i.imgur.com/nk6xmnR.png" alt="AI Future">
+      <div class="text-content">
+        <h3>БУДУЩЕЕ ВМЕСТЕ С ИСКУСТВЕННЫМ ИНТЕЛЛЕКТОМ. КАКИМ ОНО БУДЕТ ДЛЯ КАЖДОГО?</h3>
+        <p>Будущее с искусственным интеллектом приближается.</p>
+        <p>Каким оно будет?</p>
+      </div>
+    </a>
+
+    <a href="https://example.com/space-colony" class="grid-item">
+      <img src="image2.jpg" alt="Space Colony">
+      <div class="text-content">
+        <h3>LIFE BEYOND EARTH</h3>
+        <p>Колонии на других планетах — не фантастика.</p>
+        <p>Это вопрос времени.</p>
+      </div>
+    </a>
+
+    <a href="https://example.com/cybernetics" class="grid-item">
+      <img src="image3.jpg" alt="Cybernetics">
+      <div class="text-content">
+        <h3>HUMAN 2.0</h3>
+        <p>Границы между человеком и машиной стираются.</p>
+        <p>Будущее тела — кибернетика.</p>
+      </div>
+    </a>
+
+    <a href="https://example.com/cybernetics" class="grid-item">
+      <img src="image3.jpg" alt="Cybernetics">
+      <div class="text-content">
+        <h3>HUMAN 2.0</h3>
+        <p>Границы между человеком и машиной стираются.</p>
+        <p>Будущее тела — кибернетика.</p>
+      </div>
+    </a>
+
+    <a href="https://example.com/cybernetics" class="grid-item">
+      <img src="image3.jpg" alt="Cybernetics">
+      <div class="text-content">
+        <h3>HUMAN 2.0</h3>
+        <p>Границы между человеком и машиной стираются.</p>
+        <p>Будущее тела — кибернетика.</p>
+      </div>
+    </a>
+
+    <div class="only-logged-in" style="display: none;">
+      <h2>Только для авторизованных</h2>
+      <p>Этот блок виден только после входа.</p>
+    </div>
+    <!-- Добавь ещё элементы по этому шаблону -->
+  </section>
+
+
+  <script>
+    // Конфигурация Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBm-9wyNiWZPZmeKP9gof96cAjd1Tin_lI",
+      authDomain: "stop-neurodeception.firebaseapp.com",
+      projectId: "stop-neurodeception",
+      storageBucket: "stop-neurodeception.appspot.com", // Исправлен домен storage
+      messagingSenderId: "146932602084",
+      appId: "1:146932602084:web:70da4413d448498992c8f1",
+      measurementId: "G-DMZSKVPKQJ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Проверка авторизации при загрузке страницы
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById("user-photo").src = user.photoURL || 'default-avatar.png';
+        document.getElementById("auth-buttons").style.display = "none";
+      }
+    });
+
+
+    // Вход через Google
+    function signInWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(result => {
+          console.log("Вход через Google:", result.user);
+          document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
+          document.getElementById("auth-buttons").style.display = "none";
+        })
+        .catch(error => {
+          console.error("Ошибка входа через Google:", error);
+        });
+    }
+
+
+    // Вход через Facebook
+    function signInWithFacebook() {
+      const provider = new firebase.auth.FacebookAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(result => {
+          console.log("Вход через Facebook:", result.user);
+          document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
+          document.getElementById("auth-buttons").style.display = "none";
+        })
+        .catch(error => {
+          console.error("Ошибка входа через Facebook:", error);
+        });
+    }
+
+    // Инициализация Facebook SDK
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '986098059985432', // ← Укажи здесь свой Facebook App ID
+        cookie: true,
+        xfbml: true,
+        version: 'v19.0'
+      });
+      FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    //конец регистрации
+
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.header .nav');
+    const body = document.querySelector('body');
+
+    // Открытие/закрытие меню по кнопке
+    menuToggle.addEventListener('click', (event) => {
+      nav.classList.toggle('active');
+      event.stopPropagation(); // Остановка распространения события, чтобы клик не закрывал меню сразу
+    });
+
+    // Закрытие меню при клике на любое место страницы
+    body.addEventListener('click', () => {
+      if (nav.classList.contains('active')) {
+        nav.classList.remove('active');
+      }
+    });
+    // Остановка события при клике внутри меню, чтобы не закрывать его
+    nav.addEventListener('click', (event) => {
+      event.stopPropagation();
+    });
+    document.querySelectorAll('.modal-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const modalId = button.getAttribute('data-modal'); // Получаем ID модального окна
+        const modal = document.getElementById(modalId);
+        modal.style.display = 'block'; // Показываем модальное окно
+      });
+    });
+
+
+    document.querySelectorAll('.modal').forEach(modal => {
+      const overlay = modal.querySelector('.modal-overlay');
+      const closeBtn = modal.querySelector('.close-btn');
+      const iframe = modal.querySelector('iframe'); // Получаем iframe
+
+      function closeModal() {
+        modal.style.display = 'none';
+
+        // Проверяем, существует ли iframe перед сбросом
+        if (iframe) {
+          setTimeout(() => {
+            // Устанавливаем исходный src только для текущего модального окна
+            if (modal.id === "modal1") {
+              iframe.src = 'modal.html';
+            } else if (modal.id === "modal2") {
+              iframe.src = 'modal2/modal2.html';
+            }
+          }, 100);
+        }
+      }
+
+      // Закрытие по клику на оверлей
+      overlay?.addEventListener('click', closeModal);
+
+      // Закрытие по кнопке-крестику
+      closeBtn?.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginLink = document.getElementById('login-link');
+      const loginModal = document.getElementById('login-modal');
+      const loginCloseBtn = loginModal.querySelector('.close-btn');
+      const loginOverlay = loginModal.querySelector('.modal-overlay');
+
+      loginLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        loginModal.style.display = 'block';
+      });
+
+      function closeLoginModal() {
+        loginModal.style.display = 'none';
+      }
+
+      loginCloseBtn.addEventListener('click', closeLoginModal);
+      loginOverlay.addEventListener('click', closeLoginModal);
+    });
+
+    auth.onAuthStateChanged(user => {
+      const loginLink = document.getElementById("login-link");
+      const userPhoto = document.getElementById("user-photo");
+      const userInfo = document.getElementById("user-info");
+      const loginModal = document.getElementById("login-modal");
+
+      if (user) {
+        loginLink.style.display = "none";
+        userPhoto.src = user.photoURL || "default-avatar.png";
+        userInfo.style.display = "flex";
+        if (loginModal) loginModal.style.display = "none";
+      } else {
+        loginLink.style.display = "block";
+        userInfo.style.display = "none";
+      }
+
+      const protectedBlock = document.querySelector('.only-logged-in');
+      if (user && protectedBlock) {
+        protectedBlock.style.display = 'block';
+      }
+    });
+
+  </script>
+  <div class="modal" id="login-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-window">
+      <span class="close-btn">&times;</span>
+      <h2 style="text-align: center; margin-bottom: 20px;">Вход в аккаунт</h2>
+      <div class="auth-buttons" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <button onclick="signInWithGoogle()">Войти через Google</button>
+        <button onclick="signInWithFacebook()">Войти через Facebook</button>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
