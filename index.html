@@ -671,6 +671,7 @@ a.grid-item {
     auth.signInWithPopup(provider)
       .then(result => {
         console.log("Вход через Google:", result.user);
+        document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
       })
       .catch(error => {
         console.error("Ошибка входа через Google:", error);
@@ -683,6 +684,7 @@ a.grid-item {
     auth.signInWithPopup(provider)
       .then(result => {
         console.log("Вход через Facebook:", result.user);
+        document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
       })
       .catch(error => {
         console.error("Ошибка входа через Facebook:", error);
@@ -707,6 +709,7 @@ a.grid-item {
      js.src = "https://connect.facebook.net/en_US/sdk.js";
      fjs.parentNode.insertBefore(js, fjs);
    }(document, 'script', 'facebook-jssdk'));
+    //конец регистрации
 
 const menuToggle = document.getElementById('menuToggle');
 const nav = document.querySelector('.header .nav');
