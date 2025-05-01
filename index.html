@@ -230,13 +230,13 @@
       /* Изначально невидимый */
       animation: fade-in-out 6s ease-in-out infinite;
       /* Бесконечная анимация с увеличенным временем */
-      font-size: 24px;
+      font-size: 36px;
       /* Размер текста */
       color: #fff;
       /* Яркий белый цвет текста */
       text-align: center;
       /* Центрирование текста */
-      margin-top: 20px;
+      margin-top: 40px;
     }
 
     /* Дополнительный класс для изменения цвета */
@@ -347,12 +347,34 @@
       }
     }
 
+    #user-info {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
     @media (max-width: 768px) {
       .menu-toggle {
         display: block;
         cursor: pointer;
         font-size: 24px;
         color: white;
+      }
+
+      #user-info {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        gap: 8px;
+      }
+
+      #user-info img {
+        margin-bottom: 6px;
+      }
+
+      #user-info button {
+        width: 100px;
       }
 
       .header .nav {
@@ -701,9 +723,15 @@
       <p class="subtitle" style="color: #FFFFFF;">ВНИМАТЕЛЬНО СМОТРИМ В БУДУЩЕЕ</p>
       <nav class="nav">
         <a href="2danimation.html">УЧИМСЯ НОВОМУ</a>
-        <a href="javascript:void(0)" id="login-link">Войти</a>
-        <a href="uslugicenu.html">Сообщество</a>
+        <a href="https://stop-neurodeception.web.app/community.html">Сообщество</a>
         <a href="pagecontact.html">Контакты</a>
+        <a href="javascript:void(0)" id="login-link">Войти</a>
+        <div id="user-info">
+          <img id="user-photo" src="default-avatar.png" alt="Пользователь"
+            style="width: 30px; height: 30px; border-radius: 50%;" />
+          <button onclick="signOut()"
+            style="font-size: 14px; padding: 4px 8px; border: none; background: #fff; color: #313a47; border-radius: 4px; cursor: pointer;">Выйти</button>
+        </div>
       </nav>
       <div class="menu-toggle" id="menuToggle">&#9776;</div>
     </div>
@@ -721,8 +749,6 @@
 
   <section class="section" id="about">
     <p class="fade-in text-orange">ИИ - НЕ ВРАГ, А ПОМОЩНИК!</p>
-    <div class="user-entry">
-      <img id="user-photo" src="default-avatar.png" alt="Пользователь" />
     </div>
   </section>
 
@@ -790,15 +816,6 @@
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-
-    // Проверка авторизации при загрузке страницы
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        document.getElementById("user-photo").src = user.photoURL || 'default-avatar.png';
-        document.getElementById("auth-buttons").style.display = "none";
-      }
-    });
-
 
     // Вход через Google
     function signInWithGoogle() {
@@ -927,18 +944,38 @@
     });
 
     auth.onAuthStateChanged(user => {
-      const userPhoto = document.getElementById("user-photo");
       const loginLink = document.getElementById("login-link");
+      const userPhoto = document.getElementById("user-photo");
+      const userInfo = document.getElementById("user-info");
       const loginModal = document.getElementById("login-modal");
 
       if (user) {
-        userPhoto.src = user.photoURL || 'default-avatar.png';
         loginLink.style.display = "none";
-        loginModal.style.display = "none";
+        userPhoto.src = user.photoURL || "default-avatar.png";
+        userInfo.style.display = "flex";
+        if (loginModal) loginModal.style.display = "none";
       } else {
         loginLink.style.display = "block";
+        userInfo.style.display = "none";
+      }
+
+      const protectedBlock = document.querySelector('.only-logged-in');
+      if (user && protectedBlock) {
+        protectedBlock.style.display = 'block';
       }
     });
+
+    // Функция выхода из аккаунта
+    function signOut() {
+      firebase.auth().signOut().then(() => {
+        console.log("Пользователь вышел");
+        document.getElementById("user-info").style.display = "none";
+        document.getElementById("login-link").style.display = "block";
+      }).catch((error) => {
+        console.error("Ошибка выхода:", error);
+      });
+    }
+
 
   </script>
   <div class="modal" id="login-modal">
