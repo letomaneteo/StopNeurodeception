@@ -15,8 +15,9 @@
     <meta name="robots" content="index, follow">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap&subset=cyrillic" rel="stylesheet">
     <!-- Вставьте в <head> -->
-    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+<!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
 
     <style>
         body {
@@ -556,6 +557,9 @@ a.grid-item {
 
 <section class="section" id="about">
   <p class="fade-in text-orange">ИИ - НЕ ВРАГ, А ПОМОЩНИК!</p>
+    <!-- Кнопки входа -->
+<button onclick="signInWithGoogle()">Войти через Google</button>
+<button onclick="signInWithFacebook()">Войти через Facebook</button>
 </section>
 
 <section class="grid-gallery">
@@ -609,35 +613,12 @@ a.grid-item {
 
 
 <script>
-  const menuToggle = document.getElementById('menuToggle');
-const nav = document.querySelector('.header .nav');
-const body = document.querySelector('body');
-
-// Открытие/закрытие меню по кнопке
-menuToggle.addEventListener('click', (event) => {
-    nav.classList.toggle('active');
-    event.stopPropagation(); // Остановка распространения события, чтобы клик не закрывал меню сразу
-});
-
-// Закрытие меню при клике на любое место страницы
-body.addEventListener('click', () => {
-    if (nav.classList.contains('active')) {
-        nav.classList.remove('active');
-    }
-});
-//начало фаербейс
-<!-- Firebase App (всегда первым) -->
-<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
-<!-- Firebase Auth -->
-<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
-
-<script>
-  // Конфигурация твоего приложения
+ // Конфигурация Firebase
   const firebaseConfig = {
     apiKey: "AIzaSyBm-9wyNiWZPZmeKP9gof96cAjd1Tin_lI",
     authDomain: "stop-neurodeception.firebaseapp.com",
     projectId: "stop-neurodeception",
-    storageBucket: "stop-neurodeception.firebasestorage.app",
+    storageBucket: "stop-neurodeception.appspot.com", // Исправлен домен storage
     messagingSenderId: "146932602084",
     appId: "1:146932602084:web:70da4413d448498992c8f1",
     measurementId: "G-DMZSKVPKQJ"
@@ -655,53 +636,57 @@ body.addEventListener('click', () => {
         console.log("Вход через Google:", result.user);
       })
       .catch(error => {
-        console.error("Ошибка входа:", error);
+        console.error("Ошибка входа через Google:", error);
       });
   }
 
   // Вход через Facebook
- <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
-
-<script>
-  // 🔧 Настройка Firebase (вставь сюда свои данные из Firebase → Настройки проекта)
-  const firebaseConfig = {
-    apiKey: "ВАШ_API_KEY",
-    authDomain: "your-project-id.firebaseapp.com",
-    projectId: "your-project-id",
-    appId: "ваш-app-id",
-  };
-
-  // Инициализация
-  firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-
-  // 🔐 Вход через Facebook
   function signInWithFacebook() {
     const provider = new firebase.auth.FacebookAuthProvider();
     auth.signInWithPopup(provider)
       .then(result => {
-        const user = result.user;
-        console.log("Успешный вход:", user.displayName);
-        // Можешь редиректить пользователя или показывать личный кабинет
+        console.log("Вход через Facebook:", result.user);
       })
       .catch(error => {
-        console.error("Ошибка входа:", error.message);
+        console.error("Ошибка входа через Facebook:", error);
       });
   }
-</script>
 
-<!-- Кнопка -->
-<button onclick="signInWithFacebook()">Войти через Facebook</button>
-    
-</script>
+  // Инициализация Facebook SDK
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : 'ВАШ_APP_ID', // ← Укажи здесь свой Facebook App ID
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v19.0'
+    });
+    FB.AppEvents.logPageView();
+  };
 
-<!-- Кнопки -->
-<button onclick="signInWithGoogle()">Войти через Google</button>
-<button onclick="signInWithFacebook()">Войти через Facebook</button>
-//конец фаербейс
-    
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) return;
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+
+const menuToggle = document.getElementById('menuToggle');
+const nav = document.querySelector('.header .nav');
+const body = document.querySelector('body');
+
+// Открытие/закрытие меню по кнопке
+menuToggle.addEventListener('click', (event) => {
+    nav.classList.toggle('active');
+    event.stopPropagation(); // Остановка распространения события, чтобы клик не закрывал меню сразу
+});
+
+// Закрытие меню при клике на любое место страницы
+body.addEventListener('click', () => {
+    if (nav.classList.contains('active')) {
+        nav.classList.remove('active');
+    }
+});    
 // Остановка события при клике внутри меню, чтобы не закрывать его
 nav.addEventListener('click', (event) => {
     event.stopPropagation();
@@ -714,6 +699,7 @@ nav.addEventListener('click', (event) => {
     });
 });
 
+    
 document.querySelectorAll('.modal').forEach(modal => {
     const overlay = modal.querySelector('.modal-overlay');
     const closeBtn = modal.querySelector('.close-btn');
