@@ -349,6 +349,12 @@
       }
     }
 
+    #user-info {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
     @media (max-width: 768px) {
       .menu-toggle {
         display: block;
@@ -367,6 +373,18 @@
         top: 60px;
         z-index: 999;
         padding: 10px 0;
+      }
+
+      #user-info {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        gap: 8px;
+      }
+
+      #user-info img {
+        margin-bottom: 6px;
       }
 
       .header .nav.active {
@@ -702,15 +720,13 @@
       <h1>СТОП НЕЙРООБМАН</h1>
       <p class="subtitle" style="color: #FFFFFF;">ВНИМАТЕЛЬНО СМОТРИМ В БУДУЩЕЕ</p>
       <nav class="nav">
-        <a href="2danimation.html">УЧИМСЯ НОВОМУ</a>
-        <a href="uslugicenu.html">Сообщество</a>
+        <a href="https://stop-neurodeception.web.app/">ГЛАВНАЯ</a>
+        <a href="https://stop-neurodeception.web.app/community.html">УЧИМСЯ НОВОМУ</a>
         <a href="pagecontact.html">Контакты</a>
         <a href="javascript:void(0)" id="login-link">Войти</a>
-        <div id="user-info" style="display: none; align-items: center; gap: 8px;">
+        <div id="user-info">
           <img id="user-photo" src="default-avatar.png" alt="Пользователь"
             style="width: 30px; height: 30px; border-radius: 50%;" />
-          <button onclick="signOut()"
-            style="font-size: 14px; padding: 4px 8px; border: none; background: #fff; color: #313a47; border-radius: 4px; cursor: pointer;">Выйти</button>
         </div>
       </nav>
       <div class="menu-toggle" id="menuToggle">&#9776;</div>
@@ -729,8 +745,6 @@
 
   <section class="section" id="about">
     <p class="fade-in text-orange">ИИ - НЕ ВРАГ, А ПОМОЩНИК!</p>
-    <div class="user-entry">
-      <img id="user-photo" src="default-avatar.png" alt="Пользователь" />
     </div>
   </section>
 
@@ -802,15 +816,6 @@
 
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-
-    // Проверка авторизации при загрузке страницы
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        document.getElementById("user-photo").src = user.photoURL || 'default-avatar.png';
-        document.getElementById("auth-buttons").style.display = "none";
-      }
-    });
-
 
     // Вход через Google
     function signInWithGoogle() {
