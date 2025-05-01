@@ -592,7 +592,7 @@ a.grid-item {
   
   <div class="user-entry">
     <img id="user-photo" src="default-avatar.png" alt="Пользователь" />
-    <div class="auth-buttons">
+    <div id="auth-buttons" class="auth-buttons">
       <button onclick="signInWithGoogle()">Войти через Google</button>
       <button onclick="signInWithFacebook()">Войти через Facebook</button>
     </div>
@@ -667,29 +667,32 @@ a.grid-item {
 
   // Вход через Google
   function signInWithGoogle() {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    auth.signInWithPopup(provider)
-      .then(result => {
-        console.log("Вход через Google:", result.user);
-        document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
-      })
-      .catch(error => {
-        console.error("Ошибка входа через Google:", error);
-      });
-  }
+  const provider = new firebase.auth.GoogleAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(result => {
+      console.log("Вход через Google:", result.user);
+      document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
+      document.getElementById("auth-buttons").style.display = "none";
+    })
+    .catch(error => {
+      console.error("Ошибка входа через Google:", error);
+    });
+}
+
 
   // Вход через Facebook
-  function signInWithFacebook() {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    auth.signInWithPopup(provider)
-      .then(result => {
-        console.log("Вход через Facebook:", result.user);
-        document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
-      })
-      .catch(error => {
-        console.error("Ошибка входа через Facebook:", error);
-      });
-  }
+function signInWithFacebook() {
+  const provider = new firebase.auth.FacebookAuthProvider();
+  auth.signInWithPopup(provider)
+    .then(result => {
+      console.log("Вход через Facebook:", result.user);
+      document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
+      document.getElementById("auth-buttons").style.display = "none";
+    })
+    .catch(error => {
+      console.error("Ошибка входа через Facebook:", error);
+    });
+}
 
   // Инициализация Facebook SDK
   window.fbAsyncInit = function() {
