@@ -14,6 +14,10 @@
     <meta name="keywords" content="neural networks, AI security, artificial intelligence, deepfake protection, AI deception, generative AI, cybersecurity, digital ethics, AI threats, responsible AI, AI ethics, machine learning, AI regulation, combating AI fraud, algorithmic trust, AI transparency, AI manipulation">
     <meta name="robots" content="index, follow">
     <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap&subset=cyrillic" rel="stylesheet">
+    <!-- Вставьте в <head> -->
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js"></script>
+
     <style>
         body {
             margin: 0;
@@ -621,7 +625,83 @@ body.addEventListener('click', () => {
         nav.classList.remove('active');
     }
 });
+//начало фаербейс
+<!-- Firebase App (всегда первым) -->
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+<!-- Firebase Auth -->
+<script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
 
+<script>
+  // Конфигурация твоего приложения
+  const firebaseConfig = {
+    apiKey: "AIzaSyBm-9wyNiWZPZmeKP9gof96cAjd1Tin_lI",
+    authDomain: "stop-neurodeception.firebaseapp.com",
+    projectId: "stop-neurodeception",
+    storageBucket: "stop-neurodeception.firebasestorage.app",
+    messagingSenderId: "146932602084",
+    appId: "1:146932602084:web:70da4413d448498992c8f1",
+    measurementId: "G-DMZSKVPKQJ"
+  };
+
+  // Инициализация Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // Вход через Google
+  function signInWithGoogle() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    auth.signInWithPopup(provider)
+      .then(result => {
+        console.log("Вход через Google:", result.user);
+      })
+      .catch(error => {
+        console.error("Ошибка входа:", error);
+      });
+  }
+
+  // Вход через Facebook
+ <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
+
+<script>
+  // 🔧 Настройка Firebase (вставь сюда свои данные из Firebase → Настройки проекта)
+  const firebaseConfig = {
+    apiKey: "ВАШ_API_KEY",
+    authDomain: "your-project-id.firebaseapp.com",
+    projectId: "your-project-id",
+    appId: "ваш-app-id",
+  };
+
+  // Инициализация
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  // 🔐 Вход через Facebook
+  function signInWithFacebook() {
+    const provider = new firebase.auth.FacebookAuthProvider();
+    auth.signInWithPopup(provider)
+      .then(result => {
+        const user = result.user;
+        console.log("Успешный вход:", user.displayName);
+        // Можешь редиректить пользователя или показывать личный кабинет
+      })
+      .catch(error => {
+        console.error("Ошибка входа:", error.message);
+      });
+  }
+</script>
+
+<!-- Кнопка -->
+<button onclick="signInWithFacebook()">Войти через Facebook</button>
+    
+</script>
+
+<!-- Кнопки -->
+<button onclick="signInWithGoogle()">Войти через Google</button>
+<button onclick="signInWithFacebook()">Войти через Facebook</button>
+//конец фаербейс
+    
 // Остановка события при клике внутри меню, чтобы не закрывать его
 nav.addEventListener('click', (event) => {
     event.stopPropagation();
