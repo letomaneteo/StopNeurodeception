@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>СТОП НЕЙРООБМАН</title>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html,
+    body {
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      touch-action: auto;
+      /* Оптимизация касаний */
+      -webkit-overflow-scrolling: touch;
+      /* Плавный скролл на iOS */
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      font-family: 'Exo 2', sans-serif;
+      background-image: url('https://i.imgur.com/nk6xmnR.png');
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    .header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 60px;
+      background-color: #313a47;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      padding: 0 20px;
+    }
+
+    .header h1 {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%) translateY(-10px);
+      margin: 0;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .header .subtitle {
+      position: absolute;
+      bottom: 5px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 17px;
+      color: #ffffff;
+      margin: 0;
+    }
+
+    .header img {
+      height: 30px;
+      margin-right: 3px;
+    }
+
+    .header .nav {
+      display: flex;
+      gap: 15px;
+    }
+
+    .header .nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .header .nav a:hover {
+      color: #ff6347;
+    }
+
+    .menu-toggle {
+      display: none;
+      margin-top: 10px;
+      font-size: 24px;
+      color: white;
+      cursor: pointer;
+    }
+
+    #user-info {
+      display: none;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .logout-button {
+      background-color: #26243a;
+      color: #ffffff;
+      border: 1px solid #3f0505;
+      padding: 6px 12px;
+      font-size: 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .logout-button:hover {
+      background-color: #7c5fe2;
+      color: #1fa896;
+      border-color: #6330da;
+    }
+
+    .top-banner {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 8px 16px;
+      margin-top: 60px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .top-banner-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+    }
+
+    .top-banner-logo {
+      height: 28px;
+      width: auto;
+    }
+
+    .top-banner-text {
+      font-size: 18px;
+      font-weight: bold;
+      color: #000;
+      line-height: 1.3;
+    }
+
+    .modal-button {
+      color: #000000;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .modal-button:hover {
+      color: #0056b3;
+    }
+
+    .main-content {
+      flex: 1 0 auto;
+      padding: 0 20px 20px;
+      width: 100%;
+      max-width: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      min-height: auto;
+      display: flex;
+      justify-content: center;
+      /* Горизонтальное центрирование */
+    }
+
+    .big-text-section {
+      width: 100%;
+      max-width: 1400px;
+      margin: 10px auto;
+      /* Центрирование по горизонтали */
+      padding: 20px;
+      /* Уменьшили padding, чтобы сократить лишнюю высоту */
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      height: auto;
+      /* Высота строго по содержимому */
+      box-sizing: border-box;
+      /* Учитываем padding в высоте */
+      height: auto;
+    }
+
+    .big-text-section h2 {
+      font-size: 36px;
+      margin: 0 0 20px;
+      /* Убрали лишние отступы сверху */
+      color: #111;
+    }
+
+    .big-text-section p {
+      font-size: 20px;
+      line-height: 1.6;
+      margin: 0;
+      width: 100%;
+      max-width: 100%;
+      text-align: justify;
+      color: #111;
+      padding: 0 10px;
+      /* необязательно, но визуально приятно */
+    }
+
+    /* Медиа-запросы для адаптивности */
+    @media (max-width: 768px) {
+
+      .main-content {
+        padding: 10px 0;
+        margin: 0;
+
+      }
+
+      .big-text-section {
+        margin: 10px 10px;
+        padding: 5px;
+        /* Еще меньше padding на мобильных */
+      }
+
+      .big-text-section h2 {
+        font-size: 24px;
+        margin: 0 0 5px;
+      }
+
+      .big-text-section p {
+        font-size: 16px;
+        margin: 0 auto;
+        width: 100%;
+        max-width: 100%;
+        text-align: justify;
+        padding: 0 10px;
+        /* Немного внутреннего отступа, чтобы не прилипал к краям */
+      }
+    }
+
+    footer {
+      flex-shrink: 0;
+      background-color: #313a47;
+      color: #ffffff;
+      padding: 20px 0;
+      text-align: center;
+      width: 100%;
+    }
+
+    .footer-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    footer p {
+      margin: 0 0 10px;
+      font-size: 14px;
+    }
+
+    .footer-links a,
+    .footer-links .modal-button {
+      color: #ffffff;
+      text-decoration: none;
+      margin: 0 10px;
+      font-size: 14px;
+    }
+
+    .footer-links a:hover,
+    .footer-links .modal-button:hover {
+      text-decoration: underline;
+    }
+
+    /*модальные окна*/
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+    }
+
+    .modal-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-window {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 1000px;
+      height: calc(100% - 40px);
+      /* Растягиваем по высоте с отступами 20px сверху и снизу */
+      max-height: none;
+      /* Убираем ограничение высоты */
+      overflow-y: auto;
+      /* Прокрутка, если контент больше */
+      z-index: 2;
+      box-sizing: border-box;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      cursor: pointer;
+      font-size: 40px;
+      color: #8a0606;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
+    .modal-window iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .modal-title {
+      text-align: center;
+      margin-bottom: 1rem;
+      color: rgb(46, 128, 8);
+    }
+
+    .btn-modal-telegram,
+    .btn-modal-whatsapp {
+      display: inline-block;
+      padding: 12px 20px;
+      font-size: 18px;
+      border: none;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+      margin: 10px;
+    }
+
+    .btn-modal-telegram {
+      background-color: #0088cc;
+    }
+
+    .btn-modal-whatsapp {
+      background-color: #25d366;
+    }
+
+    .btn-modal-telegram:hover {
+      background-color: #66bce7;
+    }
+
+    .btn-modal-whatsapp:hover {
+      background-color: #7ef0a5;
+    }
+
+    .auth-buttons button {
+      padding: 8px 16px;
+      font-size: 16px;
+      color: #fff;
+      background: #ADA9BA;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 4px;
+      transition: background 0.3s ease;
+    }
+
+    .auth-buttons button:hover {
+      background: #E9E9E9;
+      color: black;
+    }
+
+    #login-modal .modal-window {
+      width: 90%;
+      max-width: 400px;
+      height: auto;
+      padding: 30px;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      body {
+        overflow-y: auto;
+        touch-action: auto;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .header .subtitle {
+        max-width: 95vw;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+
+      .header .nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: rgba(38, 38, 69, 0.8);
+        position: absolute;
+        left: 0;
+        top: 60px;
+        z-index: 999;
+        padding: 10px 0;
+      }
+
+      .header .nav.active {
+        display: flex;
+      }
+
+      #user-info {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        gap: 8px;
+      }
+
+      #user-info img {
+        margin-bottom: 6px;
+      }
+
+      #user-info button {
+        width: 100px;
+      }
+
+      .top-banner {
+        padding: 8px 12px;
+        margin-top: 60px;
+      }
+
+      .top-banner-logo {
+        height: 40px;
+        margin-right: 8px;
+      }
+
+      .top-banner-text {
+        font-size: 14px;
+      }
+
+      .modal-window {
+        width: 90%;
+        max-height: 85vh;
+        padding: 16px;
+      }
+
+      .modal-button {
+        font-size: 13px;
+        font-weight: bold;
+      }
+
+      .close-btn {
+        font-size: 32px;
+      }
+
+      #login-modal .modal-window {
+        width: 95%;
+        padding: 20px;
+      }
+
+      #login-modal .auth-buttons button {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .footer-links a,
+      .footer-links .modal-button {
+        display: block;
+        margin: 5px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <a href="https://stop-neurodeception.web.app/">
+        <img src="https://raw.githubusercontent.com/letomaneteo/myweb/main/AILOGO.gif" alt="Логотип"
+          style="background-color: transparent;">
+      </a>
+      <h1>СТОП НЕЙРООБМАН</h1>
+      <p class="subtitle" style="color: #FFFFFF;">ВМЕСТЕ ДВИЖЕМСЯ В БУДУЩЕЕ</p>
+      <nav class="nav">
+        <a href="https://stop-neurodeception.web.app/">ГЛАВНАЯ</a>
+        <a href="https://stop-neurodeception.web.app/community.html">СООБЩЕСТВО</a>
+        <a href="https://stop-neurodeception.web.app/test.html">SAID TEST</a>
+        <a href="javascript:void(0)" id="login-link">Войти</a>
+        <div id="user-info">
+          <img id="user-photo" src="default-avatar.png" alt="Пользователь"
+            style="width: 30px; height: 30px; border-radius: 50%;" />
+          <button onclick="signOut()" class="logout-button">Выйти</button>
+        </div>
+      </nav>
+      <div class="menu-toggle" id="menuToggle">☰</div>
+    </div>
+  </header>
+
+  <div class="top-banner">
+    <div class="top-banner-container">
+      <img src="https://raw.githubusercontent.com/letomaneteo/StopNeurodeception/main/SAID1-01.png" alt="Логотип"
+        class="top-banner-logo">
+      <div class="top-banner-text">
+        <button class="modal-button" data-modal="modal1">
+          Международная инициативная группа по борьбе с использованием реалистичных нейрогенераций в целях обмана и
+          правонарушений (SAID)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <main class="main-content">
+    <section class="big-text-section">
+      <img src="https://i.imgur.com/nk6xmnR.png" alt="Stop AI Deception"
+        style="width: 100%; max-width: 600px; display: block; margin: 0 auto 20px;" />
+
+      <h2>О ПРОЕКТЕ STOP AI DECEPTION</h2>
+      <p>
+        Наша миссия — защита общества от угроз, связанных с дезинформацией, созданной нечестными людьми с помощью
+        искусственного интеллекта. Мы фокусируемся на этике и просвещении общества в сфере технологических возможностей
+        нейросетей и противодействия их использованию в целях правонарушения. Присоединяйтесь к глобальной инициативе по
+        обеспечению цифровой безопасности.
+      </p>
+    </section>
+  </main>
+
+  <div id="modal1" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-window">
+      <div class="close-btn">×</div>
+      <iframe src="https://stop-neurodeception.web.app/saidru.html"></iframe>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-window">
+      <div class="close-btn">×</div>
+
+      <h2 class="modal-title">Свяжитесь с нами</h2>
+
+      <p style="text-align: left; text-indent: 2em;">
+        Наш проект создан для объединения людей, столкнувшихся с угрозой нечестного использования нейросетей, и тех,
+        кто готов противостоять этой угрозе.
+      </p>
+
+      <p style="text-align: left; text-indent: 2em;">
+        Современные технологии, включая ИИ, всё чаще используются в преступных целях — подделка голосов,
+        изображений, видео и даже целых личностей становится реальностью. Мы собираем реальные истории, помогаем
+        выявлять новые схемы обмана и вместе ищем пути защиты. Все это мы делаем, чтобы дать многим навык распознавания
+        поддельной реальности.
+      </p>
+
+      <p style="text-align: left; text-indent: 2em;">
+        Если у вас есть информация, которой вы готовы поделиться, или вы хотите присоединиться к нашему сообществу —
+        свяжитесь с
+        нами. Нам важен каждый голос, каждая история и любая помощь. Вместе мы сможем выработать эффективные меры
+        противодействия, повысить осведомлённость общества и защитить тех, кто в группе риска.
+      </p>
+
+      <p style="text-align: left; text-indent: 2em;">
+        Вы можете быть специалистом в области технологий, юристом, журналистом, активистом или просто человеком,
+        который не готов мириться с новой формой угрозы — ваша поддержка важна.
+      </p>
+
+      <p style="text-align: left; text-indent: 2em;">
+        Напишите нам. Присоединяйтесь к движению за цифровую безопасность и честность. Вместе мы сможем остановить
+        нейрообман.</p>
+      <!-- Центрированные кнопки и контакты -->
+      <div style="text-align: center; margin-top: 30px;">
+        <button class="btn-modal-telegram" onclick="window.open('https://t.me/consultlgermany', '_blank')">
+          Связаться в Telegram
+        </button>
+        <button class="btn-modal-whatsapp"
+          onclick="window.open('https://api.whatsapp.com/send?phone=380731749030&text=Здравствуйте,%20хочу%20обсудить%20сотрудничество', '_blank')">
+          Связаться в WhatsApp
+        </button>
+
+        <div style="margin-top: 20px;">
+          <p>Напишите нам по электронной почте:</p>
+          <a href="mailto:stopaideception@gmail.com">stopaideception@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="modal" id="login-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-window">
+      <span class="close-btn">×</span>
+      <h2 style="text-align: center; margin-bottom: 20px;">Вход в аккаунт</h2>
+      <div class="auth-buttons" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <button onclick="signInWithGoogle()">Войти через Google</button>
+        <button onclick="signInWithFacebook()">Войти через Facebook</button>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-container">
+      <p>&copy; 2025 STOP AI DECEPTION. Все права защищены.</p>
+      <div class="footer-links">
+        <a href="https://stop-neurodeception.web.app/privacy.html">Политика конфиденциальности</a>
+        <span class="modal-button font-bold text-left text-blue-800 underline cursor-pointer" data-modal="modal2">
+          Контакты
+        </span>
+        <a href="https://stop-neurodeception.web.app/terms.html">Условия использования</a>
+
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyBm-9wyNiWZPZmeKP9gof96cAjd1Tin_lI",
+      authDomain: "stop-neurodeception.firebaseapp.com",
+      projectId: "stop-neurodeception",
+      storageBucket: "stop-neurodeception.appspot.com",
+      messagingSenderId: "146932602084",
+      appId: "1:146932602084:web:70da4413d448498992c8f1",
+      measurementId: "G-DMZSKVPKQJ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    function signInWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(result => {
+          console.log("Вход через Google:", result.user);
+          document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
+          document.getElementById("auth-buttons").style.display = "none";
+        })
+        .catch(error => {
+          console.error("Ошибка входа через Google:", error);
+        });
+    }
+
+    function signInWithFacebook() {
+      const provider = new firebase.auth.FacebookAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(result => {
+          console.log("Вход через Facebook:", result.user);
+          document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
+          document.getElementById("auth-buttons").style.display = "none";
+        })
+        .catch(error => {
+          console.error("Ошибка входа через Facebook:", error);
+        });
+    }
+
+    function signOut() {
+      firebase.auth().signOut().then(() => {
+        console.log("Пользователь вышел");
+        document.getElementById("user-info").style.display = "none";
+        document.getElementById("login-link").style.display = "block";
+      }).catch(error => {
+        console.error("Ошибка выхода:", error);
+      });
+    }
+
+    auth.onAuthStateChanged(user => {
+      const loginLink = document.getElementById("login-link");
+      const userPhoto = document.getElementById("user-photo");
+      const userInfo = document.getElementById("user-info");
+      const loginModal = document.getElementById("login-modal");
+
+      if (user) {
+        loginLink.style.display = "none";
+        userPhoto.src = user.photoURL || "default-avatar.png";
+        userInfo.style.display = "flex";
+        if (loginModal) loginModal.style.display = "none";
+      } else {
+        loginLink.style.display = "block";
+        userInfo.style.display = "none";
+      }
+    });
+
+    // Mobile menu
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.header .nav');
+
+    menuToggle.addEventListener('click', (event) => {
+      nav.classList.toggle('active');
+      event.stopPropagation();
+    });
+
+    document.body.addEventListener('click', () => {
+      if (nav.classList.contains('active')) {
+        nav.classList.remove('active');
+      }
+    });
+
+    // Modals
+    document.querySelectorAll('.modal-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const modalId = button.getAttribute('data-modal');
+        const modal = document.getElementById(modalId);
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Блокируем скролл
+      });
+    });
+
+    document.querySelectorAll('.modal .close-btn, .modal-overlay').forEach(element => {
+      element.addEventListener('click', () => {
+        const modal = element.closest('.modal');
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Восстанавливаем скролл
+      });
+    });
+
+    const loginLink = document.getElementById('login-link');
+    const loginModal = document.getElementById('login-modal');
+    const loginCloseBtn = loginModal.querySelector('.close-btn');
+    const loginOverlay = loginModal.querySelector('.modal-overlay');
+
+    loginLink.addEventListener('click', (event) => {
+      event.preventDefault();
+      event.stopPropagation();
+      loginModal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    });
+
+    function closeLoginModal() {
+      loginModal.style.display = 'none';
+      document.body.style.overflow = 'auto';
+    }
+
+    loginCloseBtn.addEventListener('click', closeLoginModal);
+    loginOverlay.addEventListener('click', closeLoginModal);
+  </script>
+</body>
+
+</html>
