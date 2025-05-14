@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <!-- Язык документа -->
+  <html lang="ru">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>STOP AI DECEPTION</title>
+
+    <!-- SEO -->
+    <meta name="robots" content="index, follow">
+    <meta name="description"
+      content="Protecting against AI deception, neural network threats, generative models, and digital ethics. International initiative against AI manipulation.">
+    <meta name="keywords"
+      content="AI threats, AI deception, artificial intelligence, machine learning, AI ethics, cybersecurity, deepfake, algorithmic trust, generative models, neural networks">
+    <meta name="description"
+      content="Защита от обмана со стороны ИИ, угроз нейросетей, генеративных моделей и цифровой этики. Международная инициатива против манипуляций ИИ.">
+    <meta name="keywords"
+      content="угрозы ИИ, обман ИИ, искусственный интеллект, машинное обучение, этика ИИ, кибербезопасность, дипфейк, алгоритмическое доверие, генеративные модели, нейросети">
+
+    <meta name="author" content="STOP AI DECEPTION / СТОП НЕЙРООБМАН">
+
+    <!-- Open Graph -->
+    <meta property="og:title"
+      content="All about the threats of artificial intelligence. / Все об угрозах искусственного интеллекта.">
+    <meta property="og:description"
+      content="Studies and approaches to identifying and preventing threats from artificial intelligence. / Исследования и подходы к выявлению и предотвращению угроз от искусственного интеллекта.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://stop-neurodeception.web.app/">
+    <meta property="og:image" content="https://stop-neurodeception.web.app/images/logo.png">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Threat Testing / Тестирование угроз ИИ">
+    <meta name="twitter:description" content="Global initiative against AI manipulation, deception, and risks.">
+    <meta name="twitter:image" content="https://stop-neurodeception.web.app/images/logo.png">
+    <link rel="icon" type="image/png" href="https://stop-neurodeception.web.app/images/F32.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap&subset=cyrillic"
+      rel="stylesheet">
+    <!-- Вставьте в <head> -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-app-compat.js"></script>
+    <!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/10.11.0/firebase-auth-compat.js"></script>
+    <!-- Facebook SDK -->
+    <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        font-family: 'Exo 2', sans-serif;
+        /*background-image: url('https://i.imgur.com/RyJxO70.jpeg');*/
+        background-position: center center;
+        background-size: cover;
+        background-attachment: fixed;
+        background-color: #170646;
+        /* Фон остаётся на месте */
+      }
+
+      /* Сжатая шапка */
+      .header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 60px;
+        /* Фиксированная высота */
+        background-color: #313a47;
+        /* Цвет шапки */
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+      }
+
+      .header .container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 0 20px;
+      }
+
+      .header h1 {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%) translateY(-10px);
+        margin: 0;
+        font-size: 30px;
+        /* Можно увеличить размер текста */
+        font-weight: normal;
+      }
+
+      .header .subtitle {
+        position: absolute;
+        bottom: 5px;
+        /* Расстояние от нижнего края шапки */
+        left: 50%;
+        transform: translateX(-50%);
+        /* Центрирует по горизонтали */
+        font-size: 17px;
+        color: #ffffff;
+        /* Цвет текста */
+        margin: 0;
+      }
+
+      .header img {
+        height: 30px;
+        /* Логотип */
+        margin-right: 3px;
+      }
+
+      .header .nav {
+        display: flex;
+        gap: 15px;
+      }
+
+      .header .nav a {
+        color: white;
+        text-decoration: none;
+        font-size: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .header .nav a:hover {
+        color: #ff6347;
+      }
+
+      /* Мобильное меню */
+      .menu-toggle {
+        display: none;
+        margin-top: 10px;
+      }
+
+      .centered-text {
+        text-align: center;
+        color: #E8EDE7;
+      }
+
+      .justified-text {
+        text-align: justify;
+        color: #E8EDE7;
+      }
+
+      #video-section {
+        width: 100%;
+        height: 400px;
+        /* или 500px, если хотите больше высоту */
+        overflow: hidden;
+        /* Скрывает часть контента, выходящего за пределы */
+      }
+
+      .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 10px;
+      }
+
+      /*модлальное окно надписи*/
+      .modal-button {
+        display: inline;
+        color: inherit;
+        background: none;
+        padding: 0;
+        margin: 0;
+        border: none;
+        box-shadow: none;
+        font-size: inherit;
+        font-weight: inherit;
+        text-decoration: none;
+        /* Убираем подчёркивание */
+        cursor: pointer;
+      }
+
+      .modal-button:hover {
+        text-decoration: underline;
+        color: #0056b3;
+        /* Можете оставить, если хотите эффект при наведении */
+      }
+
+      .modal {
+        display: none;
+        /* Скрыто по умолчанию */
+        position: fixed;
+        /* Фиксированное положение */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+      }
+
+      .modal-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        /* Полупрозрачный фон */
+        z-index: 1;
+      }
+
+      .modal-window {
+        position: absolute;
+        top: 50%;
+        /* Центрирование по вертикали */
+        left: 50%;
+        /* Центрирование по горизонтали */
+        transform: translate(-50%, -50%);
+        /* Смещение для центрирования */
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        border: 2px solid rgba(173, 169, 186, 0.8);
+        /* Толщина, цвет и прозрачность рамки */
+        width: 70%;
+        /* Ширина окна */
+        max-width: 800px;
+        /* Максимальная ширина */
+        height: 50%;
+        /* Увеличенная высота */
+        overflow: auto;
+        /* Убрать прокрутку */
+        z-index: 2;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        /* Тень */
+      }
+
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 40px;
+        color: #8a0606;
+        transition: color 0.3s ease;
+      }
+
+      .close-btn:hover {
+        color: #000;
+      }
+
+      .modal-window iframe {
+        height: 80vh;
+        /* Высота iframe подстраивается под окно */
+        min-height: 400px;
+        width: 100%;
+      }
+
+      #modal1 .modal-window {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        max-height: 95vh;
+        min-height: 500px;
+        max-width: 800px;
+        padding: 20px;
+        height: auto;
+        /* Подстраивается под содержимое */
+        overflow: hidden;
+        /* Убираем прокрутку для окна */
+      }
+
+      #modal1 .modal-window iframe {
+        height: calc(95vh - 80px);
+        /* Высота iframe = max-height окна минус padding и заголовок */
+        min-height: 400px;
+        width: 100%;
+        overflow-y: auto;
+        /* Прокрутка только внутри iframe */
+        display: block;
+      }
+
+      /*изменить шрифт одного из окон*/
+      .modal-button[data-modal="modal2"] {
+        font-size: 0.9375rem;
+        /* 12px */
+      }
+
+      @media (max-width: 768px) {
+        .modal-window {
+          width: 85vw;
+          height: 85vh;
+          border-radius: 12px;
+          padding: 16px;
+          max-width: none;
+        }
+
+        .close-btn {
+          font-size: 32px;
+          top: 10px;
+          right: 10px;
+        }
+      }
+
+      /*внутри модвльного окна*/
+      /* Стили для кнопок внутри модального окна */
+      .btn-modal-telegram,
+      .btn-modal-whatsapp {
+        display: inline-block;
+        padding: 12px 20px;
+        font-size: 18px;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .modal-title {
+        text-align: center;
+        margin-bottom: 1rem;
+        color: rgb(46, 128, 8);
+        /* по желанию */
+      }
+
+      .btn-modal-telegram {
+        background-color: #0088cc;
+      }
+
+      .btn-modal-whatsapp {
+        background-color: #25d366;
+      }
+
+      .btn-modal-telegram:hover {
+        background-color: #66bce7;
+      }
+
+      .btn-modal-whatsapp:hover {
+        background-color: #7ef0a5;
+      }
+
+      /*конец модального окна надписи и контактов*/
+
+      .fade-in {
+        opacity: 0;
+        /* Изначально невидимый */
+        animation: fade-in-out 6s ease-in-out infinite;
+        /* Бесконечная анимация с увеличенным временем */
+        font-size: 24px;
+        /* Размер текста */
+        color: #fff;
+        /* Яркий белый цвет текста */
+        text-align: center;
+        /* Центрирование текста */
+        margin-top: 150px;
+      }
+
+      /* Дополнительный класс для изменения цвета */
+      .text-orange {
+        color: #ffffff;
+        /* Цвет текста */
+        text-shadow: 1px 1px 2px rgba(48, 39, 117, 0.4);
+        /* Тень текста */
+        display: flex;
+        justify-content: center;
+        /* Центрирование по горизонтали */
+        align-items: center;
+        /* Центрирование по вертикали */
+        text-align: center;
+        /* Центрируем текст внутри */
+        padding: 5px 0;
+        /* Меньшие отступы сверху и снизу */
+        line-height: 1;
+        /* Меньше расстояние между строками */
+        width: 80%;
+        /* Ограничиваем ширину текста */
+        margin: 0 auto;
+        /* Центрируем блок по горизонтали */
+      }
+
+      .grid-gallery {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* 4 колонки */
+        gap: 32px;
+        margin-top: 0;
+        padding: 5px 24px 24px;
+        max-width: 1400px;
+        /* Увеличенная ширина */
+        margin: 0 auto;
+      }
+
+      .grid-item {
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 10px;
+        overflow: hidden;
+        text-align: left;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        /* изменено с space-between */
+        height: auto;
+        /* блок подстраивается под содержимое */
+      }
+
+      .grid-item h3 {
+        font-size: 15px;
+        margin: 15px;
+        color: #111;
+        /* темный цвет текста */
+        flex-grow: 1;
+        /* позволяет заголовку "расти", занимая пространство */
+      }
+
+      .grid-item p {
+        margin: 0 15px 15px;
+        /* отступы для текста */
+        font-size: 14px;
+        color: #444;
+        /* мягкий серый */
+        flex-grow: 2;
+        /* делает текст немного "растянутым" по вертикали */
+      }
+
+      .grid-item img {
+        width: 100%;
+        height: auto;
+        /* сохраняем пропорции */
+        object-fit: contain;
+        /* НЕ обрезает изображение */
+        display: block;
+      }
+
+      a.grid-item {
+        text-decoration: none;
+        color: inherit;
+      }
+
+      @media (max-width: 600px) {
+        .grid-gallery {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @keyframes fade-in-out {
+
+        0%,
+        30% {
+          opacity: 0;
+          /* Прозрачность в начале и в конце */
+        }
+
+        50%,
+        70% {
+          opacity: 1;
+          /* Полностью видно в середине */
+        }
+
+        100% {
+          opacity: 0;
+          /* Снова исчезает в конце */
+        }
+      }
+
+      #user-info {
+        display: none;
+        align-items: center;
+        gap: 8px;
+      }
+
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: block;
+          cursor: pointer;
+          font-size: 24px;
+          color: white;
+        }
+
+        #user-info {
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          padding: 10px 0;
+          gap: 8px;
+        }
+
+        #user-info img {
+          margin-bottom: 6px;
+        }
+
+        #user-info button {
+          width: 100px;
+        }
+
+        .header .nav {
+          display: none;
+          flex-direction: column;
+          width: 100%;
+          background-color: rgba(38, 38, 69, 0.8);
+          position: absolute;
+          left: 0;
+          top: 60px;
+          z-index: 999;
+          padding: 10px 0;
+        }
+
+        .header .nav.active {
+          display: flex;
+        }
+
+        #login-link {
+          text-align: center;
+          /* Явно центрируем "Войти" */
+        }
+
+        .header h1 {
+          font-size: 24px;
+          /* Увеличенный размер заголовка */
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          /* Центрирование по горизонтали */
+          top: 8px;
+          /* Сдвиг сверху для вертикального размещения */
+          margin: 0;
+          font-weight: normal;
+          white-space: nowrap;
+          /* Предотвращает перенос текста */
+          z-index: 10;
+          /* На случай перекрытия */
+        }
+
+        .header p.subtitle {
+          font-size: 16px;
+          /* Увеличенный размер подзаголовка */
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+          /* Центрирование по горизонтали */
+          bottom: 5px;
+          /* Сдвиг снизу для размещения под заголовком */
+          margin: 0;
+          white-space: nowrap;
+          /* Предотвращает перенос текста */
+          z-index: 10;
+          /* На случай перекрытия */
+        }
+      }
+
+      .main-content {
+        padding: 10px 20px;
+        /* Отступ сверху для основного контента */
+      }
+
+      .section {
+        margin-bottom: 10px;
+      }
+
+      .section h2 {
+        font-size: 28px;
+        margin-bottom: 10px;
+      }
+
+      .section p {
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      .animation-container {
+        text-align: center;
+        position: relative;
+        width: 100%;
+        max-width: 800px;
+        height: 600px;
+        margin: 20px auto;
+        background: white;
+        border-radius: 15px;
+        border: 1px solid #ccc;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      @media (max-width: 768px) {
+        .animation-container {
+          height: 400px;
+        }
+      }
+
+      .video-container {
+        position: relative;
+        width: 100%;
+        height: 400px;
+        overflow: hidden;
+        margin: 20px 0;
+      }
+
+      .video-container video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .next-link {
+        color: #ffffff;
+        /* Цвет текста по умолчанию */
+        text-decoration: none;
+        /* Убираем подчеркивание */
+      }
+
+      .next-link:hover {
+        color: #ff6347;
+        /* Цвет текста при наведении */
+      }
+
+      .next-link:active {
+        color: #F7C815;
+        /* Цвет текста при клике */
+      }
+
+      .page-links a {
+        text-decoration: none;
+        color: #ffffff;
+        /* Цвет обычной ссылки */
+      }
+
+      .page-links a:hover {
+        color: #F7C815;
+        /* Цвет ссылки при наведении */
+      }
+
+      .page-links a.active {
+        color: #F7C815;
+        /* Цвет активной ссылки (текущей страницы) */
+        font-weight: bold;
+        /* Дополнительное выделение */
+      }
+
+      .top-banner {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        background-color: white;
+        padding: 8px 16px;
+        margin-top: 60px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+        gap: 12px;
+        overflow: hidden;
+      }
+
+      .top-banner-left {
+        flex-shrink: 0;
+      }
+
+      .top-banner-logo {
+        height: 28px;
+        width: auto;
+        display: block;
+      }
+
+      .top-banner-text {
+        flex: 1;
+        font-size: 15px;
+        font-weight: bold;
+        color: #000;
+        line-height: 1.3;
+        word-break: break-word;
+      }
+
+      /* Мобильная адаптация */
+      @media (max-width: 600px) {
+        .top-banner {
+          flex-direction: row;
+          align-items: center;
+          padding: 8px 12px;
+        }
+
+        .top-banner-logo {
+          margin-bottom: 0;
+          margin-right: 8px;
+          height: 40px;
+          /* чуть меньше */
+        }
+
+        .top-banner-text {
+          font-size: 14px;
+          text-align: left;
+        }
+      }
+
+      @media (max-width: 1100px) {
+        .grid-gallery {
+          grid-template-columns: repeat(3, 1fr);
+          /* 3 колонки на планшете */
+        }
+      }
+
+      @media (max-width: 768px) {
+        .grid-gallery {
+          grid-template-columns: repeat(2, 1fr);
+          /* 2 на телефоне */
+        }
+      }
+
+      @media (max-width: 480px) {
+        .grid-gallery {
+          grid-template-columns: 1fr;
+          /* 1 на очень маленьком экране */
+        }
+      }
+
+      @media (min-width: 1200px) {
+        .grid-item h3 {
+          font-size: 16px;
+          /* был 22px */
+        }
+
+        #about {
+          margin-bottom: 0px;
+          /* уменьшаем отступ снизу */
+        }
+
+        .grid-item p {
+          font-size: 13px;
+          /* был 18px */
+        }
+
+        .modal-window {
+          height: 75%;
+          /* немного выше */
+          font-size: 20px;
+        }
+
+        .fade-in,
+        .text-orange {
+          font-size: 36px;
+          /* текст выше баннера */
+        }
+
+        .main-content {
+          padding: 10px 100px;
+        }
+
+        .header .nav a {
+          font-size: 20px;
+        }
+
+        .modal-button {
+          font-size: 22px;
+          padding: 16px 28px;
+        }
+
+        .top-banner-text {
+          font-size: 20px;
+        }
+
+        .grid-gallery {
+          gap: 32px;
+          /* увеличить расстояние между блоками */
+          padding: 5px 24px 24px;
+        }
+      }
+
+      .user-entry {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 16px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+      }
+
+      .user-entry img {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 2px solid white;
+        background-color: #ccc;
+      }
+
+      .auth-buttons button {
+        padding: 8px 16px;
+        font-size: 16px;
+        color: #fff;
+        background: #ADA9BA;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        margin: 4px;
+        transition: background 0.3s ease;
+      }
+
+      .auth-buttons button:hover {
+        background: #E9E9E9;
+        color: black;
+      }
+
+      /* Модальное окно авторизации */
+      #login-modal .modal-window {
+        width: 90%;
+        max-width: 400px;
+        height: auto;
+        padding: 30px;
+        text-align: center;
+      }
+
+      @media (max-width: 600px) {
+        #login-modal .modal-window {
+          width: 95%;
+          padding: 20px;
+        }
+
+        #login-modal .auth-buttons button {
+          width: 100%;
+        }
+      }
+
+      .logout-button {
+        background-color: #26243a;
+        color: #ffffff;
+        border: 1px solid #3f0505;
+        padding: 6px 12px;
+        font-size: 14px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+      }
+
+      .logout-button:hover {
+        background-color: #7c5fe2;
+        color: #1fa896;
+        border-color: #6330da;
+      }
+
+      /*карусель*/
+      .carousel-news-container {
+        max-width: 1400px;
+        margin: 10px auto;
+        overflow: hidden;
+        position: relative;
+        padding: 0;
+      }
+
+      .carousel-viewport {
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .carousel-track {
+        display: flex;
+        transition: transform 0.5s ease;
+        will-change: transform;
+      }
+
+      .carousel-item {
+        flex: 0 0 calc((100% - 64px) / 5);
+        /* 5 блоков, 4 отступа по 16px */
+        margin-right: 16px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        box-sizing: border-box;
+      }
+
+      .carousel-item:last-child {
+        margin-right: 0;
+      }
+
+      .carousel-item img {
+        width: 100%;
+        height: auto;
+        border-radius: 6px;
+        object-fit: cover;
+      }
+
+      .carousel-controls {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-top: 8px;
+      }
+
+      .carousel-btn {
+        background-color: #fcfbf7;
+        color: #b95425;
+        border: none;
+        padding: 2px 18px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 10%;
+        transition: background 0.3s;
+      }
+
+      .carousel-btn:hover {
+        background-color: #4631ad;
+      }
+
+      /* Адаптив */
+      @media (max-width: 1200px) {
+        .carousel-item {
+          flex: 0 0 calc((100% - 48px) / 4);
+        }
+      }
+
+      @media (max-width: 900px) {
+        .carousel-item {
+          flex: 0 0 calc((100% - 32px) / 3);
+        }
+      }
+
+      @media (max-width: 600px) {
+
+        /* Или ваше целевое разрешение для мобильных */
+        .carousel-item {
+          flex: 0 0 calc(100% - 32px);
+          /* Уменьшаем ширину элемента, учитывая padding по бокам */
+          margin-right: 16px;
+          /* Сохраняем отступ между элементами */
+        }
+
+        .carousel-item:last-child {
+          margin-right: 0;
+          /* У последнего элемента margin-right должен быть 0 */
+        }
+
+        .carousel-viewport {
+          padding: 0 17px;
+          /* Добавляем горизонтальные отступы по 16px с каждой стороны */
+          overflow: hidden;
+          /* Убедимся, что лишнее скрыто */
+          width: 100%;
+        }
+
+        /* Возможно, также нужно скорректировать ширину контейнера карусели,
+         если у него есть горизонтальные margin или padding, которые мешают */
+        .carousel-news-container {
+          padding: 0;
+          /* Убираем возможный горизонтальный padding, если он есть */
+        }
+
+      }
+
+      /* Стили для подвала (Footer) */
+      footer {
+        background-color: #313a47;
+        /* Цвет фона, можно использовать тот же, что и в шапке */
+        color: #ffffff;
+        /* Цвет текста */
+        padding: 20px 0;
+        /* Отступы сверху и снизу */
+        text-align: center;
+        /* Выравнивание текста по центру */
+        margin-top: 10px;
+        /* Отступ сверху, чтобы отделить от контента */
+        width: 100%;
+        /* Ширина на всю страницу */
+        box-sizing: border-box;
+        /* Учитываем padding в ширине */
+      }
+
+      .footer-container {
+        max-width: 1400px;
+        /* Ограничиваем ширину контента футера, как и для остального контента */
+        margin: 0 auto;
+        /* Центрируем контейнер футера */
+        padding: 0 20px;
+        /* Отступы по бокам внутри контейнера */
+      }
+
+      footer p {
+        margin: 0 0 10px 0;
+        /* Отступ снизу для текста копирайта */
+        font-size: 14px;
+      }
+
+      .footer-links a {
+        color: #ffffff;
+        /* Цвет ссылок в футере */
+        text-decoration: none;
+        /* Убираем подчеркивание ссылок */
+        margin: 0 10px;
+        /* Отступы между ссылками */
+        font-size: 14px;
+      }
+
+      .footer-links a:hover {
+        text-decoration: underline;
+        /* Подчеркивание ссылок при наведении */
+      }
+
+      @media (min-width: 1024px) {
+        footer {
+          position: relative;
+          top: 0px;
+        }
+      }
+
+      /* Адаптация для мобильных устройств, если нужна */
+      @media (max-width: 600px) {
+        .footer-links a {
+          display: block;
+          /* Ссылки в столбик на маленьких экранах */
+          margin: 5px 0;
+          /* Отступы между ссылками в столбике */
+        }
+      }
+
+      /* нижний текст */
+      .big-text-section {
+        width: 100%;
+        max-width: 1400px;
+        margin: 10px auto;
+        padding: 40px 20px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        overflow-x: hidden;
+      }
+
+      .big-text-container {
+        text-align: center;
+        color: #111;
+      }
+
+      .big-text-container h2 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      .big-text-container p {
+        font-size: 20px;
+        line-height: 1.6;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      /* Мобильная адаптация */
+      @media (max-width: 768px) {
+        body {
+          overflow-x: hidden;
+          background-size: cover;
+          background-position: center center;
+        }
+
+        .big-text-section {
+          width: auto;
+          /* ← Убираем 100% */
+          max-width: 100%;
+          padding: 30px 20px;
+          /* ← Боковые отступы */
+          margin: 30px 15px;
+          /* ← Умеренные внешние отступы */
+          background-color: rgba(255, 255, 255, 0.95);
+          border-radius: 12px;
+          box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+          box-sizing: border-box;
+        }
+
+        .fade-in,
+        .text-orange {
+          font-size: 18px;
+          /* текст выше баннера */
+        }
+
+
+        .big-text-container h2 {
+          font-size: 24px;
+        }
+
+        .big-text-container p {
+          font-size: 16px;
+        }
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        overflow-x: hidden !important;
+      }
+    </style>
+  </head>
+
+<body>
+
+  <header class="header">
+    <div class="container">
+      <a href="https://stop-neurodeception.web.app/">
+        <img src="https://raw.githubusercontent.com/letomaneteo/myweb/main/AILOGO.gif" alt="Логотип"
+          style="background-color: transparent;">
+      </a>
+      <h1>СТОП НЕЙРООБМАН</h1>
+      <p class="subtitle" style="color: #FFFFFF;">ВНИМАТЕЛЬНО СМОТРИМ В БУДУЩЕЕ</p>
+      <nav class="nav">
+        <a href="https://stop-neurodeception.web.app/test.html">SAID TEST</a>
+        <a href="https://stop-neurodeception.web.app/community.html">СООБЩЕСТВО</a>
+        <!--<a href="pagecontact.html">Контакты</a>-->
+        <a href="javascript:void(0)" id="login-link">Войти</a>
+        <div id="user-info">
+          <img id="user-photo" src="default-avatar.png" alt="Пользователь"
+            style="width: 30px; height: 30px; border-radius: 50%;" />
+          <button onclick="signOut()" class="logout-button">Выйти</button>
+        </div>
+      </nav>
+      <div class="menu-toggle" id="menuToggle">&#9776;</div>
+    </div>
+  </header>
+  <div class="top-banner">
+    <div class="top-banner-left">
+      <img src="https://raw.githubusercontent.com/letomaneteo/StopNeurodeception/main/SAID1-01.png" alt="Логотип"
+        class="top-banner-logo">
+    </div>
+    <div class="top-banner-text">
+      <span class="modal-button font-bold text-left text-blue-800 underline cursor-pointer" data-modal="modal1">
+        Международная инициативная группа по борьбе с использованием реалистичных нейрогенераций в целях обмана
+        и правонарушений (SAID)
+      </span>
+    </div>
+  </div>
+  <p class="fade-in text-orange">ИИ - НЕ ВРАГ, А ПОМОЩНИК!</p>
+  <div class="carousel-news-container">
+    <div class="carousel-viewport">
+      <div class="carousel-track" id="news-carousel">
+        <!-- Повторяющиеся блоки (5 оригиналов + клоны в конец) -->
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/nk6xmnR.png" alt="1">
+          <h3>ИИ и будущее</h3>
+          <p>Как ИИ изменит наш завтрашний день?</p>
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/BQygTLa.jpg" alt="2">
+          <h3>Марс и мы</h3>
+          <p>Колонизация планет — уже близко.</p>
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/gfQ8QtB.jpg" alt="3">
+          <h3>Deepfake</h3>
+          <p>Фальшивые реальности среди нас.</p>
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/FUw8v7M.jpg" alt="4">
+          <h3>Роботы-помощники</h3>
+          <p>Будущее в твоем доме.</p>
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/6kV9Y0F.jpg" alt="5">
+          <h3>Нейросети</h3>
+          <p>Что нужно знать каждому?</p>
+        </div>
+        <!-- Клоны -->
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/nk6xmnR.png" alt="1-clone">
+          <h3>ИИ и будущее</h3>
+          <p>Как ИИ изменит наш завтрашний день?</p>
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/BQygTLa.jpg" alt="2-clone">
+          <h3>Марс и мы</h3>
+          <p>Колонизация планет — уже близко.</p>
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/BQygTLa.jpg" alt="2-clone">
+          <h3>Марс и мы</h3>
+          <p>Колонизация планет — уже близко.</p>
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/gfQ8QtB.jpg" alt="3-clone">
+          <h3>Deepfake</h3>
+          <p>Фальшивые реальности среди нас.</p>
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/FUw8v7M.jpg" alt="4-clone">
+          <h3>Роботы-помощники</h3>
+          <p>Будущее в твоем доме.</p>
+        </div>
+        <div class="carousel-item">
+          <img src="https://i.imgur.com/6kV9Y0F.jpg" alt="5-clone">
+          <h3>Нейросети</h3>
+          <p>Что нужно знать каждому?</p>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-controls">
+      <button class="carousel-btn" onclick="moveCarousel(-1)">❮</button>
+      <button class="carousel-btn" onclick="moveCarousel(1)">❯</button>
+    </div>
+  </div>
+
+  <section class="grid-gallery">
+    <a href="https://stop-neurodeception.web.app/futureai_ru.html" class="grid-item" target="_blank"
+      rel="noopener noreferrer">
+      <img src="https://i.imgur.com/nk6xmnR.png" alt="AI Future">
+      <div class="text-content">
+        <h3>БУДУЩЕЕ ВМЕСТЕ С ИСКУССТВЕННЫМ ИНТЕЛЛЕКТОМ. КАКИМ ОНО БУДЕТ ДЛЯ КАЖДОГО?</h3>
+        <p>Будущее с искусственным интеллектом приближается. Каким оно будет, и как изменится наша жизнь? Многие
+          называют
+          развитие искусственного интеллекта...</p>
+      </div>
+    </a>
+
+    <a href="https://stop-neurodeception.web.app/10generai_ru.html" class="grid-item" target="_blank"
+      rel="noopener noreferrer">
+      <img src="https://i.imgur.com/pRkMRWy.png" alt="10 AIIMAGEGenerators">
+      <div class="text-content">
+        <h3>ЛИДЕРЫ РЫНКА ГЕНЕРАЦИЙ. 10 ЛУЧШИХ ОНЛАЙН ИИ-ГЕНЕРАТОРОВ ИЗОБРАЖЕНИЙ. ЧТО ВЫБРАТЬ.</h3>
+        <p>Собранные в списке нейросети сегодня лидируют в нейронных инструментариях дизайнеров, художников и просто
+          любителей красивого визуала.</p>
+      </div>
+    </a>
+
+    <a href="https://stop-neurodeception.web.app/10video_ru.html" class="grid-item" target="_blank"
+      rel="noopener noreferrer">
+      <img src="https://i.imgur.com/gESx6Oh.png" alt="10 VIDEOGenerators">
+      <div class="text-content">
+        <h3>ВИДЕОГЕНЕРАЦИИ В ДЕЛЕ. 10 ЛУЧШИХ НЕЙРОГЕНЕРАТОРОВ ВИДЕО В МАЕ 2025.</h3>
+        <p>Практически каждую неделю в интернете появляются новые генераторы видео. Популярность сгенерированных
+          видеороликов в
+          соцсетях растет, а их авторы конкурируют в красоте...</p>
+      </div>
+    </a>
+
+    <a href="https://stop-neurodeception.web.app/10video_ru.html" class="grid-item" target="_blank"
+      rel="noopener noreferrer">
+      <img src="https://i.imgur.com/gESx6Oh.png" alt="10 VIDEOGenerators">
+      <div class="text-content">
+        <h3>ВОЙНА МИРОВ LLM. ТОП 10 ПЕРЕДОВЫХ ТЕКСТОВЫХ НЕЙРОНОК.</h3>
+        <p>10 основных игроков на рынке LLM время от времени схватываются между собой в эпических битвах на полях
+          внимания пользователей и в
+          царстве бенчмарков.
+        </p>
+      </div>
+    </a>
+
+    <a href="https://example.com/cybernetics" class="grid-item">
+      <img src="image3.jpg" alt="Cybernetics">
+      <div class="text-content">
+        <h3>HUMAN 2.0</h3>
+        <p>Границы между человеком и машиной стираются.</p>
+        <p>Будущее тела — кибернетика.</p>
+      </div>
+    </a>
+
+    <!-- Добавь ещё элементы по этому шаблону -->
+
+  </section>
+
+
+  <script>
+    // Конфигурация Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyBm-9wyNiWZPZmeKP9gof96cAjd1Tin_lI",
+      authDomain: "stop-neurodeception.firebaseapp.com",
+      projectId: "stop-neurodeception",
+      storageBucket: "stop-neurodeception.appspot.com", // Исправлен домен storage
+      messagingSenderId: "146932602084",
+      appId: "1:146932602084:web:70da4413d448498992c8f1",
+      measurementId: "G-DMZSKVPKQJ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    // Вход через Google
+    function signInWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(result => {
+          console.log("Вход через Google:", result.user);
+          document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
+          document.getElementById("auth-buttons").style.display = "none";
+        })
+        .catch(error => {
+          console.error("Ошибка входа через Google:", error);
+        });
+    }
+
+
+    // Вход через Facebook
+    function signInWithFacebook() {
+      const provider = new firebase.auth.FacebookAuthProvider();
+      auth.signInWithPopup(provider)
+        .then(result => {
+          console.log("Вход через Facebook:", result.user);
+          document.getElementById("user-photo").src = result.user.photoURL || 'default-avatar.png';
+          document.getElementById("auth-buttons").style.display = "none";
+        })
+        .catch(error => {
+          console.error("Ошибка входа через Facebook:", error);
+        });
+    }
+
+    // Инициализация Facebook SDK
+    /*
+    window.fbAsyncInit = function () {
+      FB.init({
+        appId: '986098059985432', // ← Укажи здесь свой Facebook App ID
+        cookie: true,
+        xfbml: true,
+        version: 'v19.0'
+      });
+      FB.AppEvents.logPageView();
+    };
+
+    (function (d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "https://connect.facebook.net/en_US/sdk.js";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    //конец регистрации*/
+
+    const menuToggle = document.getElementById('menuToggle');
+    const nav = document.querySelector('.header .nav');
+    const body = document.querySelector('body');
+
+    // Открытие/закрытие меню по кнопке
+    menuToggle.addEventListener('click', (event) => {
+      nav.classList.toggle('active');
+      event.stopPropagation(); // Остановка распространения события, чтобы клик не закрывал меню сразу
+    });
+
+    // Закрытие меню при клике на любое место страницы
+    body.addEventListener('click', () => {
+      if (nav.classList.contains('active')) {
+        nav.classList.remove('active');
+      }
+    });
+    // Остановка события при клике внутри меню, чтобы не закрывать его
+    nav.addEventListener('click', (event) => {
+      event.stopPropagation();
+    });
+    //модальное окно
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.modal-button').forEach(button => {
+        button.addEventListener('click', () => {
+          const modalId = button.getAttribute('data-modal');
+          const modal = document.getElementById(modalId);
+          const iframe = modal.querySelector('iframe');
+          const baseSrc = button.getAttribute('data-src');
+
+          // Обновить iframe.src с cache busting, если указан data-src
+          if (iframe && baseSrc) {
+            iframe.src = baseSrc + '?ts=' + Date.now();
+          }
+
+          modal.style.display = 'block';
+        });
+      });
+
+      document.querySelectorAll('.modal').forEach(modal => {
+        const overlay = modal.querySelector('.modal-overlay');
+        const closeBtn = modal.querySelector('.close-btn');
+
+        function closeModal() {
+          modal.style.display = 'none';
+        }
+
+        overlay?.addEventListener('click', closeModal);
+        closeBtn?.addEventListener('click', closeModal);
+      });
+    });
+
+
+    //модальное окно авиторизации
+    document.addEventListener('DOMContentLoaded', () => {
+      const loginLink = document.getElementById('login-link');
+      const loginModal = document.getElementById('login-modal');
+      const loginCloseBtn = loginModal.querySelector('.close-btn');
+      const loginOverlay = loginModal.querySelector('.modal-overlay');
+
+      loginLink.addEventListener('click', (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        loginModal.style.display = 'block';
+      });
+
+      function closeLoginModal() {
+        loginModal.style.display = 'none';
+      }
+
+      loginCloseBtn.addEventListener('click', closeLoginModal);
+      loginOverlay.addEventListener('click', closeLoginModal);
+    });
+
+    auth.onAuthStateChanged(user => {
+      const loginLink = document.getElementById("login-link");
+      const userPhoto = document.getElementById("user-photo");
+      const userInfo = document.getElementById("user-info");
+      const loginModal = document.getElementById("login-modal");
+
+      if (user) {
+        loginLink.style.display = "none";
+        userPhoto.src = user.photoURL || "default-avatar.png";
+        userInfo.style.display = "flex";
+        if (loginModal) loginModal.style.display = "none";
+      } else {
+        loginLink.style.display = "block";
+        userInfo.style.display = "none";
+      }
+
+      const protectedBlock = document.querySelector('.only-logged-in');
+      if (user && protectedBlock) {
+        protectedBlock.style.display = 'block';
+      }
+    });
+
+    // Функция выхода из аккаунта
+    function signOut() {
+      firebase.auth().signOut().then(() => {
+        console.log("Пользователь вышел");
+        document.getElementById("user-info").style.display = "none";
+        document.getElementById("login-link").style.display = "block";
+      }).catch((error) => {
+        console.error("Ошибка выхода:", error);
+      });
+    }
+
+
+
+    const track = document.getElementById("news-carousel");
+    const items = track.querySelectorAll(".carousel-item");
+    const originalItemCount = items.length; // Сохраняем исходное количество элементов
+    const viewport = document.querySelector(".carousel-viewport");
+    const itemMarginRight = 16; // Значение margin-right из CSS
+
+    // Количество клонов для добавления с каждого конца.
+    // Должно быть достаточно, чтобы заполнить видимую область + еще несколько для плавности.
+    // Давайте добавим по 5 клонов с каждой стороны для начала.
+    const clonesToAdd = 5;
+
+    // Клонируем последние элементы и добавляем их в начало
+    for (let i = originalItemCount - clonesToAdd; i < originalItemCount; i++) {
+      const clone = items[i].cloneNode(true);
+      track.insertBefore(clone, items[0]);
+    }
+
+    // Клонируем первые элементы и добавляем их в конец
+    for (let i = 0; i < clonesToAdd; i++) {
+      const clone = items[i].cloneNode(true);
+      track.appendChild(clone);
+    }
+
+    // Обновляем список элементов после добавления клонов
+    const allItems = track.querySelectorAll(".carousel-item");
+    const totalItemCount = allItems.length;
+
+    // Начальный индекс: начинаем с первого оригинального элемента (после клонов в начале)
+    let currentIndex = clonesToAdd;
+
+    // Устанавливаем начальную позицию без анимации
+    function setInitialPosition() {
+      // Убедимся, что элементы уже имеют свои размеры
+      if (allItems[0].offsetWidth === 0) {
+        setTimeout(setInitialPosition, 50); // Повторить попытку, если размеры еще не определены
+        return;
+      }
+      const itemWidthWithMargin = allItems[0].offsetWidth + itemMarginRight;
+      track.style.transition = "none";
+      track.style.transform = `translateX(-${currentIndex * itemWidthWithMargin}px)`;
+    }
+
+    setInitialPosition(); // Вызываем при загрузке
+
+    function moveCarousel(direction) {
+      // Убедимся, что элементы уже имеют свои размеры перед движением
+      if (allItems[0].offsetWidth === 0) {
+        return; // Не двигаем, если размеры еще не определены
+      }
+      const itemWidthWithMargin = allItems[0].offsetWidth + itemMarginRight;
+
+      currentIndex += direction; // Двигаемся на один элемент
+
+      track.style.transition = "transform 0.5s ease";
+      track.style.transform = `translateX(-${currentIndex * itemWidthWithMargin}px)`;
+
+      // Обработка бесконечной прокрутки после завершения анимации
+      setTimeout(() => {
+        // Если мы переместились на клоны в конце
+        if (currentIndex >= originalItemCount + clonesToAdd) {
+          currentIndex = clonesToAdd + (currentIndex - (originalItemCount + clonesToAdd)); // Переходим к соответствующему клону в начале
+          track.style.transition = "none"; // Отключаем анимацию для моментального перехода
+          track.style.transform = `translateX(-${currentIndex * itemWidthWithMargin}px)`;
+          // Нет необходимости вызывать setInitialPosition здесь, transform уже установлен
+        }
+        // Если мы переместились на клоны в начале
+        else if (currentIndex < clonesToAdd) {
+          currentIndex = originalItemCount + (currentIndex - clonesToAdd); // Переходим к соответствующему клону в конце
+          track.style.transition = "none"; // Отключаем анимацию
+          track.style.transform = `translateX(-${currentIndex * itemWidthWithMargin}px)`;
+          // Нет необходимости вызывать setInitialPosition здесь
+        }
+      }, 510); // Время должно быть немного больше времени transition
+    }
+
+    // Привязываем функции к кнопкам управления каруселью
+    document.querySelector(".carousel-controls .carousel-btn:first-child").onclick = () => moveCarousel(1); // Кнопка "Назад"
+    document.querySelector(".carousel-controls .carousel-btn:last-child").onclick = () => moveCarousel(-1); // Кнопка "Вперед"
+
+
+    // Автоматическая прокрутка
+    setInterval(() => moveCarousel(1), 6000); // Прокрутка каждые 6 секунд на 1 элемент
+
+    // Добавляем обработчик изменения размера окна для пересчета позиции, если нужно (опционально)
+    window.addEventListener('resize', setInitialPosition);
+
+  </script>
+  <!--ьщдальное окно для надписи-->
+  <div class="modal" id="login-modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-window">
+      <span class="close-btn">&times;</span>
+      <h2 style="text-align: center; margin-bottom: 20px;">Вход в аккаунт</h2>
+      <div class="auth-buttons" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <button onclick="signInWithGoogle()">Войти через Google</button>
+        <button onclick="signInWithFacebook()">Войти через Facebook</button>
+      </div>
+    </div>
+  </div>
+
+
+  <section class="big-text-section">
+    <div class="big-text-container">
+      <h2>О ПРОЕКТЕ STOP AI DECEPTION</h2>
+      <p>
+        Наша миссия — защита общества от угроз, связанных с дезинформацией, созданной нечестными людьми с помощью
+        искусственного интеллекта.
+        Мы фокусируемся на этике и просвещении общества в сфере технологических возможностей нейросетей и противодествия
+        их использованию в целях правонарушения.
+        Присоединяйтесь к глобальной инициативе по обеспечению цифровой безопасности.
+      </p>
+    </div>
+  </section>
+  <!-- Модальное окно надписи-->
+  <div id="modal1" class="modal">
+    <div class="modal-overlay"></div> <!-- затемнение -->
+    <div class="modal-window">
+      <div class="close-btn">&times;</div> <!-- крестик -->
+      <iframe src="https://stop-neurodeception.web.app/saidru.html"></iframe>
+    </div>
+  </div>
+
+  <!-- Модальное окно контакти-->
+  <div id="modal2" class="modal">
+    <div class="modal-overlay"></div>
+    <div class="modal-window">
+      <div class="close-btn">&times;</div>
+
+      <h2 class="modal-title">Свяжитесь с нами</h2>
+      <p>Наш проект создан для объединения людей, столкнувшихся с угрозой нечестного использования нейросетей, и тех,
+        кто готов
+        противостоять этой угрозе.</p>
+      <p>Современные технологии, включая ИИ, всё чаще используются в преступных целях — подделка
+        голосов,
+        изображений, видео и даже целых личностей становится реальностью. Мы собираем реальные истории, помогаем
+        выявлять новые
+        схемы обмана и вместе ищем пути защиты. Все это мы делаем, чтобы дать многим навык распознавания поддельной
+        реальности.</p>
+
+      <p>Если у вас есть информация, которой вы готовы поделиться, или вы хотите присоединиться к нашему сообществу —
+        свяжитесь с
+        нами. Нам важен каждый голос, каждая история и любая помощь. Вместе мы сможем выработать эффективные меры
+        противодействия, повысить осведомлённость общества и защитить тех, кто в группе риска.</p>
+
+      <p>Вы можете быть специалистом в области технологий, юристом, журналистом, активистом или просто человеком,
+        который
+        не
+        готов мириться с новой формой угрозы — ваша поддержка важна. Напишите нам. Присоединяйтесь к движению за
+        цифровую
+        безопасность и честность. Вместе мы сможем остановить нейрообман.</p>
+
+      <!-- Уникальные классы для кнопок внутри модального окна -->
+      <div class="button-container">
+        <button class="btn-modal-telegram" onclick="window.open('https://t.me/consultlgermany', '_blank')">
+          Связаться в Telegram
+        </button>
+      </div>
+
+      <div class="button-container">
+        <button class="btn-modal-whatsapp"
+          onclick="window.open('https://api.whatsapp.com/send?phone=380731749030&text=Здравствуйте,%20хочу%20обсудить%20сотрудничество', '_blank')">
+          Связаться в WhatsApp
+        </button>
+      </div>
+      <div class="email-contact" style="margin-top: 20px; text-align: center;">
+        <p>Напишите нам по электронной почте:</p>
+        <a href="mailto:stopaideception@gmail.com">stopaideception@gmail.com</a>
+      </div>
+    </div>
+  </div>
+
+
+  <footer>
+    <div class="footer-container">
+      <p>&copy; 2025 STOP AI DECEPTION. Все права защищены.</p>
+      <div class="footer-links">
+        <a href="https://stop-neurodeception.web.app/privacy.html">Политика конфиденциальности</a>
+        <span class="modal-button font-bold text-left text-blue-800 underline cursor-pointer" data-modal="modal2">
+          Контакты
+        </span>
+        <a href="https://stop-neurodeception.web.app/terms.html">Условия использования</a>
+
+      </div>
+    </div>
+  </footer>
+</body>
+
+</html>
