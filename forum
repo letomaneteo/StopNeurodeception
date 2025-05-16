@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>FORUM STOP AI DECEPTION</title>
+
+  <!-- SEO -->
+  <meta name="robots" content="index, follow">
+  <meta name="description"
+    content="Исследование и защита от угроз искусственного интеллекта, включая манипуляции нейросетей, генеративные модели и цифровую этику. Международная инициатива против манипуляций ИИ.">
+  <meta name="keywords"
+    content="угрозы ИИ, манипуляции ИИ, искусственный интеллект, машинное обучение, этика ИИ, безопасность ИИ, deepfake, доверие алгоритмов, генеративные модели, нейросети, AI deception, AI risks, AI ethics, AI security">
+  <!-- Meta tags for the homepage -->
+  <meta name="description"
+    content="Exploring and protecting against AI threats, including neural network manipulations, generative models, and digital ethics. An international initiative against AI deception and manipulation.">
+  <meta name="keywords"
+    content="AI threats, AI deception, artificial intelligence, machine learning, AI ethics, AI security, deepfake, algorithmic trust, generative models, neural networks, AI risks, AI safety, AI manipulation">
+
+  <meta name="author" content="STOP AI DECEPTION / СТОП НЕЙРООБМАН">
+
+  <!-- Open Graph -->
+  <meta property="og:title"
+    content="Discussion of the threats of artificial intelligence / Обсуждение угроз искусственного интеллекта">
+  <meta property="og:description"
+    content="Discussion of identification and prevention of artificial intelligence risks. / Обсуждение выявления и предотвращения рисков искусственного интеллекта.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://stop-neurodeception.web.app/">
+  <meta property="og:image" content="https://stop-neurodeception.web.app/images/logo.png">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="AI Threat Testing / Тестирование угроз ИИ">
+  <meta name="twitter:description" content="Global initiative against AI manipulation, deception, and risks.">
+  <meta name="twitter:image" content="https://stop-neurodeception.web.app/images/logo.png">
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;600&display=swap&subset=cyrillic"
+    rel="stylesheet">
+  <link rel="icon" type="image/png" href="https://stop-neurodeception.web.app/images/F32.png">
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Exo 2", sans-serif;
+      background: url('https://i.imgur.com/JP1znKU.png') repeat;
+      background-size: 95px 90px;
+      /* Уменьшаем размер фонового изображения */
+      color: #333;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+
+    .container {
+      width: 100%;
+      max-width: 1400px;
+      display: flex;
+      flex-direction: column;
+      /* align-items: center;  <--- удалите это */
+      align-items: stretch;
+      /* или установите stretch */
+    }
+
+
+    .logo-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .logo {
+      width: 250px;
+      height: 250px;
+      object-fit: cover;
+    }
+
+    .logo-text {
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      margin-top: 10px;
+    }
+
+    h1,
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    form#new-thread-form {
+      margin-bottom: 30px;
+      background: #c6e1fa;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      width: 100%;
+      box-sizing: border-box;
+      font-size: 18px;
+    }
+
+
+    /* Убедитесь, что .thread имеет те же стили для сравнения */
+    .threads {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      max-height: 1400px;
+      overflow: auto;
+      width: 100%;
+    }
+
+    #new-thread-section {
+      max-width: 1400px;
+      margin: 0 auto;
+      width: 100%;
+      padding: 10px;
+    }
+
+    #new-thread-form {
+      width: 100%;
+    }
+
+    /* Адаптивность для мобильных устройств */
+    @media (max-width: 600px) {
+
+      form#new-thread-form,
+      .thread {
+        padding: 15px;
+        margin-bottom: 20px;
+      }
+
+      .container {
+        padding: 10px;
+      }
+
+      #new-thread-form input,
+      #new-thread-form textarea {
+        font-size: 14px;
+        padding: 10px;
+      }
+    }
+
+    /* Глобальные стили — не затрагивают форму создания темы */
+    input:not(#thread-title),
+    textarea:not(#thread-content) {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-size: 16px;
+      resize: vertical;
+    }
+
+
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #007BFF;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .thread {
+      background: #f1f8fd;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.04);
+      max-height: 1400px;
+      overflow: auto;
+      width: 100%;
+    }
+
+    .thread h3 {
+      margin-top: 0;
+      color: #0056b3;
+      font-weight: bold;
+    }
+
+    .thread p {
+      font-weight: bold;
+    }
+
+    .intro-text {
+      text-align: center;
+    }
+
+    .reply {
+      margin-top: 15px;
+      padding: 12px;
+      background: #f1f3f5;
+      border-left: 4px solid #007BFF;
+      border-radius: 8px;
+    }
+
+    .reply-form {
+      margin-top: 15px;
+    }
+
+    small {
+      color: #777;
+    }
+
+    /*кнопки на главную*/
+    .link-button-group {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    .link-button {
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #9ec4ec;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    }
+
+    .link-button:hover {
+      background-color: #0056b3;
+    }
+
+    /*конец кнопок на главную*/
+
+    /*кнопка вверх*/
+    #scrollTopBtn {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      font-size: 18px;
+      background-color: #8792ce;
+      color: rgb(53, 180, 117);
+      border: none;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #scrollTopBtn:hover {
+      background-color: #e7d31a;
+    }
+
+    #scrollTopBtn.show {
+      opacity: 1;
+      visibility: visible;
+    }
+
+
+    /*конец кнопки вверх*/
+    #auth-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    #auth-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    #auth-buttons img {
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      border-radius: 8px;
+    }
+
+    #user-info {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-align: center;
+      width: 100%;
+    }
+
+    #user-photo {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      margin: 0 auto;
+    }
+
+    #user-name {
+      font-weight: bold;
+      display: block;
+      margin: 0 auto;
+    }
+
+    #user-info button {
+      display: none;
+    }
+
+    .neuroLock {
+      visibility: hidden;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .visible {
+      visibility: visible;
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+
+    /* Увеличение размеров полей ввода для лучшей видимости */
+    form#new-thread-form input,
+    form#new-thread-form textarea {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="logo-container">
+      <img class="logo" src="https://i.imgur.com/y4nVbdk.png" alt="Логотип">
+
+    </div>
+
+    <h1>Communication:Stop Neurodeception</h1>
+
+    <div id="auth-section">
+      <div id="auth-buttons">
+        <img src="https://developers.google.com/identity/images/g-logo.png" onclick="signInWithGoogle()"
+          title="Войти через Google">
+        <img src="https://www.facebook.com/images/fb_icon_325x325.png" onclick="signInWithFacebook()"
+          title="Войти через Facebook" style="height: 40px;">
+      </div>
+      <div id="user-info">
+        <img id="user-photo" src="default-avatar.png" alt="Аватар">
+        <span id="user-name"></span>
+      </div>
+    </div>
+
+    <div class="intro-text">
+      <div class="logo-text">Делимся опытом и обсуждаем нейроугрозы.</div>
+      <div class="logo-text">Правила простые: не оскорблять никого.</div>
+    </div>
+    <div class="link-button-group">
+      <a href="https://stop-neurodeception.web.app/" class="link-button">На главную</a>
+      <a href="https://stop-neurodeception.web.app/test_ru.html" target="_blank" class="link-button">SAID Тест</a>
+    </div>
+
+    <h2>ТЕМЫ</h2>
+    <div id="threads"></div>
+  </div>
+
+  <div id="new-thread-section">
+    <h2>Создать тему</h2>
+    <form id="new-thread-form" class="neuroLock">
+      <input type="text" id="thread-title" placeholder="Заголовок темы" required>
+      <textarea id="thread-content" placeholder="Текст темы" required></textarea>
+      <button type="submit">Опубликовать</button>
+    </form>
+    <p id="auth-message" class="neuroLock">Пожалуйста, войдите, чтобы создать тему.</p>
+  </div>
+  <button id="scrollTopBtn" title="Наверх">⬆️</button>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBm-9wyNiWZPZmeKP9gof96cAjd1Tin_lI",
+      authDomain: "stop-neurodeception.firebaseapp.com",
+      projectId: "stop-neurodeception",
+      storageBucket: "stop-neurodeception.appspot.com",
+      messagingSenderId: "146932602084",
+      appId: "1:146932602084:web:70da4413d448498992c8f1",
+      measurementId: "G-DMZSKVPKQJ"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const API_BASE = 'https://vitualnebosinev.pythonanywhere.com';
+
+    let currentUserName = 'Аноним';
+
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        currentUserName = user.displayName || 'Без имени';
+        document.getElementById("user-photo").src = user.photoURL || 'default-avatar.png';
+        document.getElementById("user-name").textContent = currentUserName;
+        document.getElementById("auth-buttons").style.display = "none";
+        document.getElementById("user-info").style.display = "flex";
+        // Показать формы для авторизованных
+        document.getElementById("new-thread-form").classList.remove("neuroLock");
+        document.getElementById("auth-message").classList.add("neuroLock");
+        document.querySelectorAll(".reply-form").forEach(form => form.classList.remove("neuroLock"));
+        document.querySelectorAll("[id^='reply-auth-message']").forEach(msg => msg.classList.add("neuroLock"));
+      } else {
+        currentUserName = 'Аноним';
+        document.getElementById("auth-buttons").style.display = "flex";
+        document.getElementById("user-info").style.display = "none";
+        // Скрыть формы для неавторизованных
+        document.getElementById("new-thread-form").classList.add("neuroLock");
+        document.getElementById("auth-message").classList.remove("neuroLock");
+        document.querySelectorAll(".reply-form").forEach(form => form.classList.add("neuroLock"));
+        document.querySelectorAll("[id^='reply-auth-message']").forEach(msg => msg.classList.remove("neuroLock"));
+      }
+    });
+
+    function signInWithGoogle() {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      auth.signInWithPopup(provider).catch(console.error);
+    }
+
+    function signInWithFacebook() {
+      const provider = new firebase.auth.FacebookAuthProvider();
+      auth.signInWithPopup(provider).catch(console.error);
+    }
+
+    function signOut() {
+      auth.signOut();
+    }
+
+    document.getElementById('new-thread-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!auth.currentUser) {
+        alert("Пожалуйста, войдите, чтобы создать тему.");
+        return;
+      }
+      const title = document.getElementById('thread-title').value.trim();
+      const message = document.getElementById('thread-content').value.trim();
+      if (!title || !message) return;
+
+      try {
+        const res = await fetch(`${API_BASE}/add-thread`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, message, author: currentUserName })
+        });
+        const data = await res.json();
+        console.log("Тема добавлена с ID:", data.id);
+        document.getElementById('new-thread-form').reset();
+        loadThreads();
+      } catch (error) {
+        console.error("Ошибка при добавлении темы:", error);
+      }
+    });
+
+    async function loadThreads() {
+      const container = document.getElementById('threads');
+      container.innerHTML = '';
+      try {
+        const res = await fetch(`${API_BASE}/get-threads`);
+        const threads = await res.json();
+
+        threads.forEach(thread => {
+          const div = document.createElement('div');
+          div.className = 'thread';
+          div.innerHTML = `
+            <h3>${thread.title}</h3>
+            <p>${thread.message}</p>
+            <small>Автор: ${thread.author}</small>
+            <div id="replies-${thread.id}"></div>
+            <form id="reply-form-${thread.id}" class="reply-form ${auth.currentUser ? '' : 'neuroLock'}" onsubmit="addReply(event, '${thread.id}')">
+              <textarea placeholder="Ваш ответ" required></textarea>
+              <button type="submit">Ответить</button>
+            </form>
+            <p id="reply-auth-message-${thread.id}" class="${auth.currentUser ? 'neuroLock' : ''}">Пожалуйста, войдите, чтобы ответить.</p>
+          `;
+          container.appendChild(div);
+          loadReplies(thread.id);
+        });
+      } catch (error) {
+        console.error("Ошибка при загрузке тем:", error);
+      }
+    }
+
+    async function addReply(e, threadId) {
+      e.preventDefault();
+      if (!auth.currentUser) {
+        alert("Пожалуйста, войдите, чтобы оставить ответ.");
+        return;
+      }
+      const content = e.target.querySelector('textarea').value.trim();
+      if (!content) return;
+
+      try {
+        await fetch(`${API_BASE}/add-comment/${threadId}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: content, author: currentUserName })
+        });
+        e.target.reset();
+        loadReplies(threadId);
+      } catch (error) {
+        console.error("Ошибка при добавлении ответа:", error);
+      }
+    }
+
+    async function loadReplies(threadId) {
+      const container = document.getElementById(`replies-${threadId}`);
+      container.innerHTML = '';
+      try {
+        const res = await fetch(`${API_BASE}/get-comments/${threadId}`);
+        const replies = await res.json();
+
+        replies.forEach(reply => {
+          const div = document.createElement('div');
+          div.className = 'reply';
+          div.innerHTML = `<p>${reply.text}</p><small>Автор: ${reply.author}</small>`;
+          container.appendChild(div);
+        });
+      } catch (error) {
+        console.error("Ошибка при загрузке ответов:", error);
+      }
+    }
+
+    loadThreads();
+    //кнопка вверх
+
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const scrollBtn = document.getElementById("scrollTopBtn");
+
+      function toggleScrollButton() {
+        const scrolled = window.scrollY > 100;
+        const canScroll = document.body.scrollHeight > window.innerHeight + 10;
+
+        if (scrolled && canScroll) {
+          scrollBtn.classList.add("show");
+        } else {
+          scrollBtn.classList.remove("show");
+        }
+      }
+
+      window.addEventListener("scroll", toggleScrollButton);
+      window.addEventListener("resize", toggleScrollButton);
+      toggleScrollButton(); // проверка на старте
+
+      scrollBtn.addEventListener("click", function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+
+
+  </script>
+
+
+</body>
+
+</html>
